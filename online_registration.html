@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Online Application — Gbonkolenken International Academy (GIA)</title>
+<meta name="description" content="Apply online for admission to Gbonkolenken International Academy, Makeni, Sierra Leone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/nav.css">
+<style>
+:root{
+  --navy:#0A2A66; --navy-dark:#061B45; --navy-mid:#17408F;
+  --butter:#F7E9A8; --butter-soft:#FFF8DC; --butter-deep:#E2C95C; --butter-ink:#7A6310;
+  --ink:#10203F; --ink-soft:#4B5878; --line:#DCD5B2; --paper:#FFFDF4; --danger:#A33A2E; --ok:#1F6B45;
+  --radius:8px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:#F6F1DC;color:var(--ink);font-family:'Source Sans 3',system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Libre Baskerville',serif;margin:0;}
+button{font-family:inherit;}
+:focus-visible{outline:2.5px solid var(--butter-deep);outline-offset:2px;}
+
+ 
+/* Header */
+
+
+
+
+
+
+
+
+
+ 
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);color:#fff;border-bottom:5px solid var(--butter);}
+.hero .in{max-width:1180px;margin:0 auto;padding:34px 20px 30px;}
+.hero h1{font-size:clamp(26px,4.4vw,38px);font-weight:600;margin-bottom:6px;}
+.hero p{margin:0;max-width:62ch;color:#DCE5F7;font-size:15.5px;}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+.chip{background:var(--butter);color:var(--navy-dark);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:999px;}
+ 
+/* Layout */
+.layout{max-width:1180px;margin:0 auto;padding:26px 20px 70px;display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:26px;align-items:start;}
+.side{display:flex;flex-direction:column;gap:16px;position:sticky;top:16px;}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;}
+.panel h3{font-size:16px;color:var(--navy);margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--butter-deep);}
+.panel ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);}
+.panel li{margin-bottom:5px;}
+.panel p{margin:0 0 6px;font-size:13.5px;color:var(--ink-soft);}
+.panel a{color:var(--navy);font-weight:600;text-decoration:none;}
+.panel a:hover{text-decoration:underline;}
+ 
+/* Stepper */
+.stepper{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.stepper::-webkit-scrollbar{display:none;}
+.st{flex:1;min-width:104px;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:9px 8px;text-align:center;font-size:12px;font-weight:600;color:var(--ink-soft);cursor:pointer;}
+.st b{display:grid;place-items:center;width:26px;height:26px;margin:0 auto 4px;border-radius:50%;background:var(--butter-soft);border:1.5px solid var(--butter-deep);color:var(--butter-ink);font-size:12.5px;}
+.st[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff;}
+.st[aria-selected="true"] b{background:var(--butter);border-color:var(--butter);color:var(--navy-dark);}
+.st.done b{background:var(--navy);border-color:var(--navy);color:var(--butter);}
+.st:disabled{opacity:.55;cursor:not-allowed;}
+.bar{height:5px;background:#E6DFB8;border-radius:5px;margin:12px 0 14px;overflow:hidden;}
+.bar i{display:block;height:100%;width:0;background:var(--navy);transition:width .25s;}
+ 
+.sheet{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--navy);border-radius:var(--radius);padding:28px 30px 26px;box-shadow:0 2px 10px rgba(10,42,102,.07);}
+.step{display:none;}
+.step.active{display:block;}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap;border-bottom:2px solid var(--butter-deep);padding-bottom:12px;margin-bottom:22px;}
+.sh h2{font-size:22px;color:var(--navy);}
+.sh p{margin:2px 0 0;font-size:13.5px;color:var(--ink-soft);}
+.sh .tag{font-size:12px;font-weight:600;background:var(--butter);color:var(--navy-dark);padding:3px 10px;border-radius:999px;}
+.grp{margin-bottom:22px;}
+.grp > h4{font-size:14.5px;color:var(--navy);margin-bottom:12px;}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px 16px;}
+.f{display:flex;flex-direction:column;gap:5px;grid-column:span 2;}
+.f.s3{grid-column:span 3;} .f.s4{grid-column:span 4;} .f.s6{grid-column:span 6;}
+.f label{font-size:12.5px;font-weight:600;color:var(--ink);}
+.f label i{color:var(--danger);font-style:normal;margin-left:2px;}
+.f label em{font-style:normal;font-weight:400;color:var(--ink-soft);font-size:11.5px;margin-left:4px;}
+.f input,.f select,.f textarea{font-family:inherit;font-size:14px;padding:10px 12px;border:1.5px solid #CFC7A0;border-radius:6px;background:#fff;color:var(--ink);width:100%;}
+.f textarea{resize:vertical;}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(10,42,102,.12);}
+.f.bad input,.f.bad select,.f.bad textarea{border-color:var(--danger);background:#FFF6F4;}
+.f .err{font-size:12px;color:var(--danger);display:none;}
+.f.bad .err{display:block;}
+.hint{font-size:12.5px;color:var(--ink-soft);margin:0 0 12px;}
+.note{background:var(--butter-soft);border-left:4px solid var(--butter-deep);padding:10px 14px;font-size:13px;border-radius:0 6px 6px 0;margin-bottom:18px;color:var(--ink);}
+ 
+/* Photo */
+.photo-block{display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:var(--butter-soft);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:22px;}
+.photo-box{width:132px;height:176px;border:2px dashed var(--navy-mid);border-radius:6px;background:#fff;display:grid;place-items:center;text-align:center;overflow:hidden;flex:0 0 auto;font-size:12px;color:var(--ink-soft);padding:8px;}
+.photo-box.has{border-style:solid;padding:0;}
+.photo-box img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-info h4{font-size:15px;color:var(--navy);margin-bottom:4px;}
+.photo-info ul{margin:0 0 12px;padding-left:18px;font-size:12.5px;color:var(--ink-soft);}
+.photo-info .row{display:flex;gap:8px;flex-wrap:wrap;}
+.photo-block.bad{border-color:var(--danger);}
+#err-photo{color:var(--danger);font-size:12.5px;margin-top:8px;display:none;}
+.photo-block.bad #err-photo{display:block;}
+ 
+/* Uploads */
+.up{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);}
+.up:first-of-type{border-top:0;}
+.up .t{flex:1;min-width:200px;}
+.up .t b{display:block;font-size:14px;}
+.up .t span{font-size:12.5px;color:var(--ink-soft);}
+.pill{font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;background:#F4E1DD;color:var(--danger);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pill.ok{background:#DDF0E4;color:var(--ok);}
+.up .e{flex-basis:100%;font-size:12px;color:var(--danger);}
+ 
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--navy);background:#fff;color:var(--navy);}
+.btn:hover{background:var(--butter-soft);}
+.btn.pri{background:var(--navy);color:#fff;}
+.btn.pri:hover{background:var(--navy-dark);}
+.btn.gold{background:var(--butter);border-color:var(--butter-deep);color:var(--navy-dark);}
+.btn.gold:hover{background:var(--butter-deep);}
+.btn.sm{padding:7px 13px;font-size:12.5px;}
+.btn.ghost{border-style:dashed;}
+.btn:disabled{opacity:.55;cursor:default;}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:26px;padding-top:20px;border-top:1px solid var(--line);}
+.nav .g{display:flex;gap:10px;flex-wrap:wrap;}
+ 
+.decl{display:flex;gap:10px;align-items:flex-start;padding:10px 0;font-size:13.5px;}
+.decl input{width:18px;height:18px;margin-top:2px;accent-color:var(--navy);flex:0 0 auto;}
+.decl.bad{color:var(--danger);}
+ 
+/* ===== Application document (review / print / pdf) ===== */
+.docwrap{background:#E4DEC0;border-radius:var(--radius);padding:18px;margin-bottom:22px;overflow-x:auto;}
+#doc{background:#fff;color:#111;width:100%;max-width:794px;margin:0 auto;padding:34px 40px 30px;font-family:'Source Sans 3',Arial,sans-serif;font-size:12.5px;line-height:1.45;border:1px solid #CFC7A0;}
+#doc .lh{display:flex;align-items:center;gap:16px;border-bottom:4px solid var(--navy);padding-bottom:12px;position:relative;}
+#doc .lh::after{content:'';position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--butter-deep);}
+#doc .lh img{width:86px;height:auto;}
+#doc .lh .c{flex:1;text-align:center;}
+#doc .lh h2{font-size:21px;color:var(--navy);letter-spacing:.3px;text-transform:uppercase;}
+#doc .lh .mo{font-family:'Libre Baskerville',serif;font-style:italic;color:var(--butter-ink);font-size:14px;margin:1px 0 3px;}
+#doc .lh .ad{font-size:11px;color:#333;}
+#doc .ttl{margin:22px 0 12px;text-align:center;}
+#doc .ttl span{display:inline-block;background:var(--navy);color:var(--butter);font-family:'Libre Baskerville',serif;font-weight:600;font-size:15px;letter-spacing:1.2px;padding:6px 26px;border-radius:3px;}
+#doc .ttl small{display:block;margin-top:5px;font-size:11.5px;color:#444;}
+#doc .meta{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:10px;}
+#doc .meta .l{flex:1;}
+#doc .refs{font-size:11.5px;margin-bottom:8px;}
+#doc .refs b{color:var(--navy);}
+#doc .pp{width:112px;height:144px;border:1.5px solid var(--navy);background:#F8F8F8;display:grid;place-items:center;font-size:10px;color:#777;text-align:center;flex:0 0 auto;}
+#doc .pp img{width:100%;height:100%;object-fit:cover;display:block;}
+#doc .letter p{margin:0 0 7px;text-align:justify;}
+#doc .sec{margin-top:12px;page-break-inside:avoid;break-inside:avoid;}
+#doc .sec h3{font-family:'Source Sans 3',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;background:var(--butter);color:var(--navy-dark);padding:4px 10px;border-left:5px solid var(--navy);}
+#doc table{width:100%;border-collapse:collapse;}
+#doc td{border:1px solid #BFB88F;padding:5px 9px;vertical-align:top;}
+#doc td.k{width:20%;background:#FBF6DD;font-weight:600;color:var(--navy-dark);font-size:11.5px;}
+#doc td.k2{width:20%;background:#FBF6DD;font-weight:600;color:var(--navy-dark);font-size:11.5px;}
+#doc .sign{display:flex;gap:30px;margin-top:18px;page-break-inside:avoid;break-inside:avoid;}
+#doc .sign div{flex:1;text-align:center;font-size:11.5px;}
+#doc .sign .ln{border-bottom:1px solid #222;height:30px;margin-bottom:4px;font-family:'Libre Baskerville',serif;font-style:italic;font-size:15px;color:var(--navy);display:flex;align-items:flex-end;justify-content:center;}
+#doc .off{margin-top:16px;border:2px solid var(--navy);page-break-inside:avoid;break-inside:avoid;}
+#doc .off h3{background:var(--navy);color:var(--butter);font-family:'Source Sans 3',sans-serif;font-size:11.5px;letter-spacing:.8px;text-transform:uppercase;padding:5px 10px;}
+#doc .off table td{height:34px;}
+#doc .foot{margin-top:14px;border-top:2px solid var(--butter-deep);padding-top:6px;text-align:center;font-size:10.5px;color:#444;}
+ 
+.done-card{text-align:center;padding:30px 10px 8px;}
+.done-card .tick{width:68px;height:68px;border-radius:50%;background:var(--navy);color:var(--butter);display:grid;place-items:center;margin:0 auto 14px;font-size:34px;}
+.done-card h2{color:var(--navy);margin-bottom:6px;}
+.done-card p{max-width:56ch;margin:0 auto 10px;color:var(--ink-soft);}
+.done-card .ref{display:inline-block;background:var(--butter);color:var(--navy-dark);font-weight:700;padding:6px 16px;border-radius:6px;margin:6px 0 16px;letter-spacing:.5px;}
+.done-card .g{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+ 
+
+
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-dark);color:#fff;border:1px solid var(--butter-deep);padding:11px 20px;border-radius:8px;font-size:13.5px;opacity:0;pointer-events:none;transition:.2s;z-index:80;max-width:88vw;text-align:center;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+ 
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr;}
+  .side{position:static;order:2;}
+}
+@media (max-width:640px){
+  .sheet{padding:20px 16px;}
+  .grid{grid-template-columns:1fr;}
+  .f,.f.s3,.f.s4,.f.s6{grid-column:span 1;}
+  
+  #doc{padding:20px 14px;}
+  #doc .lh{flex-direction:column;text-align:center;}
+  #doc .meta{flex-direction:column-reverse;align-items:center;}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;}}
+ 
+@page{size:A4;margin:10mm;}
+@media print{
+  body{background:#fff;}
+  body *{visibility:hidden;}
+  #doc,#doc *{visibility:visible;}
+  #doc{position:absolute;left:0;top:0;width:100%;max-width:none;border:0;padding:0;}
+  .docwrap{background:none;padding:0;}
+}
+
+/* School building behind the page title, and room for the sticky site header */
+.hero{background:linear-gradient(90deg,rgba(6,27,69,.96),rgba(6,27,69,.8)),url(images/campus-front.jpg) center/cover;}
+.side{top:150px;}
+[hidden]{display:none!important;}
+.layout>*{min-width:0;}
+.stepper{overflow-x:auto;max-width:100%;}
+@media(max-width:900px){.side{position:static;}}
+.sheet.closed{text-align:center;padding:40px 26px;border:2px solid #A33A2E;}
+.sheet.closed h2{color:#A33A2E;margin-bottom:8px}
+#admWarn{background:#FDECEA;border:2px solid #A33A2E;border-radius:8px;padding:12px 16px;margin-bottom:16px;color:#7a1f16;font-weight:500}
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0A2A66">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GIA">
+<link rel="apple-touch-icon" href="images/icon-192.png">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body data-main="app">
+<div id="gia-header"></div>
+ 
+<section class="hero">
+  <div class="in">
+    <h1>Online Application for Admission</h1>
+    <p>Apply for a place from Day-care to Senior Secondary School. Complete the seven steps, review your application letter, then submit it to the school.</p>
+    <div class="chips"><span class="chip">Day-care</span><span class="chip">Kindergarten 1–3</span><span class="chip">Grade 1–6</span><span class="chip">J.S.S 1–3</span><span class="chip">S.S.S 1–3</span></div>
+  </div>
+</section>
+ 
+<div class="layout">
+  <main id="app">
+    <section id="closedArea" class="sheet closed" hidden><h2>Admission is currently closed</h2><p>We are not receiving new applications at this time. Please contact the school office to ask about the next intake.</p><p><a class="btn pri" href="contact-us.html">Contact the school office</a> <a class="btn" href="Academic_programs.html#admission">See the admission notice</a></p></section>
+    <div id="formArea">
+      <nav class="stepper" id="stepper" aria-label="Application steps"></nav>
+      <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+ 
+      <div class="sheet">
+ 
+        <!-- 1 Applicant -->
+        <section class="step active" data-step="0">
+          <div class="sh"><div><h2>Applicant details</h2><p>Enter the details exactly as they appear on the birth certificate.</p></div><span class="tag">Step 1 of 7</span></div>
+          <div class="photo-block" id="photoBlock">
+            <div class="photo-box" id="photoBox"><span>Passport photograph<br>(required)</span></div>
+            <div class="photo-info">
+              <h4>Passport photograph</h4>
+              <ul><li>Clear face, plain light background</li><li>JPG, PNG or WebP, up to 5 MB</li><li>It is cropped to passport size automatically</li></ul>
+              <div class="row">
+                <button type="button" class="btn pri sm" id="photoBtn">Upload photo</button>
+                <button type="button" class="btn sm ghost" id="photoRemove" hidden>Remove</button>
+              </div>
+              <input type="file" id="photoInput" accept="image/png,image/jpeg,image/webp" hidden>
+              <div id="err-photo">Please upload the applicant's passport photograph.</div>
+            </div>
+          </div>
+          <div id="fields-0"></div>
+          <div class="nav"><div class="g"></div><div class="g"><button class="btn" type="button" data-act="draft">Save draft</button><button class="btn pri" type="button" data-act="next">Next: Residence</button></div></div>
+        </section>
+ 
+        <!-- 2 Residence -->
+        <section class="step" data-step="1">
+          <div class="sh"><div><h2>Residence</h2><p>Where the applicant lives.</p></div><span class="tag">Step 2 of 7</span></div>
+          <div id="fields-1"></div>
+          <div class="nav"><div class="g"><button class="btn ghost" type="button" data-act="back">Back</button></div><div class="g"><button class="btn" type="button" data-act="draft">Save draft</button><button class="btn pri" type="button" data-act="next">Next: Parent / guardian</button></div></div>
+        </section>
+ 
+        <!-- 3 Guardian -->
+        <section class="step" data-step="2">
+          <div class="sh"><div><h2>Parent / guardian</h2><p>The adult the school will contact about the applicant.</p></div><span class="tag">Step 3 of 7</span></div>
+          <div id="fields-2"></div>
+          <div class="nav"><div class="g"><button class="btn ghost" type="button" data-act="back">Back</button></div><div class="g"><button class="btn" type="button" data-act="draft">Save draft</button><button class="btn pri" type="button" data-act="next">Next: Academic details</button></div></div>
+        </section>
+ 
+        <!-- 4 Academic -->
+        <section class="step" data-step="3">
+          <div class="sh"><div><h2>Academic details</h2><p>Choose the stage and class the applicant is applying for.</p></div><span class="tag">Step 4 of 7</span></div>
+          <div class="grp"><h4>Class applied for</h4>
+            <div class="grid" id="acadGrid">
+              <div class="f s3"><label for="acadYear">Academic year<i>*</i></label><select id="acadYear"><option>2026 / 2027</option><option>2027 / 2028</option></select><span class="err">Select the academic year</span></div>
+              <div class="f s3"><label for="entryTerm">Term of entry<i>*</i></label><select id="entryTerm"><option value="">Select term</option><option>First Term</option><option>Second Term</option><option>Third Term</option></select><span class="err">Select the term of entry</span></div>
+              <div class="f s3"><label for="levelGroup">School stage<i>*</i></label><select id="levelGroup"><option value="">Select stage</option></select><span class="err">Select the school stage</span></div>
+              <div class="f s3"><label for="classLevel">Class<i>*</i></label><select id="classLevel" disabled><option value="">Select stage first</option></select><span class="err">Select the class</span></div>
+              <div class="f s6" id="streamWrap" hidden><label for="stream">Department (Senior Secondary)<i>*</i></label><select id="stream"><option value="">Select department</option><option>Science</option><option>Art</option><option>Commercial</option></select><span class="err">Select the department</span></div>
+            </div>
+          </div>
+          <div class="grp"><h4>Previous schooling</h4>
+            <p class="hint" id="prevHint">Required from Grade 1 upward. Optional for Day-care and Kindergarten.</p>
+            <div class="grid">
+              <div class="f s3"><label for="prevSchool">Previous school <em id="prevOpt"></em></label><input type="text" id="prevSchool"><span class="err">Enter the previous school</span></div>
+              <div class="f s3"><label for="prevClass">Last class completed</label><input type="text" id="prevClass" placeholder="e.g. Grade 5"></div>
+              <div class="f s6"><label for="prevReason">Reason for leaving <em>optional</em></label><input type="text" id="prevReason"></div>
+            </div>
+          </div>
+          <div class="nav"><div class="g"><button class="btn ghost" type="button" data-act="back">Back</button></div><div class="g"><button class="btn" type="button" data-act="draft">Save draft</button><button class="btn pri" type="button" data-act="next">Next: Medical</button></div></div>
+        </section>
+ 
+        <!-- 5 Medical -->
+        <section class="step" data-step="4">
+          <div class="sh"><div><h2>Medical and emergency</h2><p>Kept confidential and shared only with those who need it for the applicant's care.</p></div><span class="tag">Step 5 of 7</span></div>
+          <div id="fields-4"></div>
+          <div class="nav"><div class="g"><button class="btn ghost" type="button" data-act="back">Back</button></div><div class="g"><button class="btn" type="button" data-act="draft">Save draft</button><button class="btn pri" type="button" data-act="next">Next: Documents</button></div></div>
+        </section>
+ 
+        <!-- 6 Documents -->
+        <section class="step" data-step="5">
+          <div class="sh"><div><h2>Supporting documents</h2><p>PDF, JPG or PNG, up to 3 MB each. Clear scans or photos are accepted.</p></div><span class="tag">Step 6 of 7</span></div>
+          <div id="uploads"></div>
+          <div class="nav"><div class="g"><button class="btn ghost" type="button" data-act="back">Back</button></div><div class="g"><button class="btn" type="button" data-act="draft">Save draft</button><button class="btn pri" type="button" data-act="next">Next: Review</button></div></div>
+        </section>
+ 
+        <!-- 7 Review -->
+        <section class="step" data-step="6">
+          <div class="sh"><div><h2>Review your application</h2><p>This is the application form the school will receive. Check every detail.</p></div><span class="tag">Step 7 of 7</span></div>
+          <div class="docwrap"><div id="doc"></div></div>
+ 
+          <div class="grp"><h4>Declaration</h4>
+            <label class="decl" id="d1"><input type="checkbox" id="decl1"><span>I confirm that the information and documents provided are true and complete.</span></label>
+            <label class="decl" id="d2"><input type="checkbox" id="decl2"><span>I agree to abide by the rules and regulations of Gbonkolenken International Academy and to pay school fees promptly.</span></label>
+            <label class="decl" id="d3"><input type="checkbox" id="decl3"><span>I consent to the school seeking emergency medical treatment for the applicant if I cannot be reached.</span></label>
+            <div class="grid" style="margin-top:10px">
+              <div class="f s3"><label for="signName">Type your full name as signature<i>*</i></label><input type="text" id="signName" autocomplete="name"><span class="err">Type your full name to sign</span></div>
+            </div>
+          </div>
+ 
+          <div class="nav">
+            <div class="g"><button class="btn ghost" type="button" data-act="back">Back to documents</button></div>
+            <div class="g">
+              <button class="btn" type="button" id="btnPrint">Print</button>
+              <button class="btn gold" type="button" id="btnPdf">Download PDF</button>
+              <button class="btn pri" type="button" id="btnSubmit">Submit application</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+ 
+    <div class="sheet" id="doneArea" hidden>
+      <div class="done-card">
+        <div class="tick">&#10003;</div>
+        <h2 id="doneTitle">Application submitted</h2>
+        <p id="doneText"></p>
+        <div class="ref" id="doneRef"></div>
+        <div class="g">
+          <button class="btn" type="button" id="doneView">View application</button>
+          <button class="btn gold" type="button" id="donePdf">Download PDF</button>
+          <button class="btn" type="button" id="donePrint">Print</button>
+          <button class="btn ghost" type="button" id="doneNew">Start a new application</button>
+        </div>
+      </div>
+    </div>
+  </main>
+ 
+  <aside class="side">
+    <div class="panel">
+      <h3>Before you begin</h3>
+      <ul>
+        <li>A passport photograph of the applicant</li>
+        <li>Birth certificate (scan or photo)</li>
+        <li>Last school report (from Grade 1 upward)</li>
+        <li>Parent or guardian's phone number</li>
+        <li>Emergency contact details</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Need help?</h3>
+      <p>Contact the Senior Administrative Officer's office.</p>
+      <p><a href="mailto:infogia@gmail.com">infogia@gmail.com</a></p>
+      <p><a href="https://giamakeni.com" target="_blank" rel="noopener">giamakeni.com</a></p>
+      <p>New Jersey, Makama, Makeni, Sierra Leone</p>
+      <p><a href="privacy-terms.html">Privacy Policy &amp; Terms</a></p>
+    </div>
+    <div class="panel">
+      <h3>School terms</h3>
+      <p>First Term, Second Term and Third Term. You may apply for entry in any term.</p>
+    </div>
+  </aside>
+</div>
+ 
+<div id="gia-footer"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="js/admission-config.js"></script>
+<script src="js/admission.js"></script>
+<script>
+const LOGO = 'data:image/png;base64,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';
+const SCHOOL = {name:'Gbonkolenken International Academy', short:'GIA', motto:'Seat of Wisdom',
+  address:'New Jersey, Makama, Makeni, Sierra Leone', email:'infogia@gmail.com', web:'giamakeni.com'};
+const RECIPIENT = 'infogia@gmail.com';   // applications are sent to the SCHOOL address. Change here only.
+const DRAFT_KEY = 'gia_application_draft_v1';
+ 
+document.querySelectorAll('.logo-img').forEach(i => i.src = LOGO);
+const fav = document.createElement('link'); fav.rel = 'icon'; fav.href = LOGO; document.head.appendChild(fav);
+ 
+/* ---------------- Academic structure ---------------- */
+const LEVELS = {
+  'Day-care':['Day-care'],
+  'Kindergarten':['Kindergarten 1','Kindergarten 2','Kindergarten 3'],
+  'Primary (Grades)':['Grade 1','Grade 2','Grade 3','Grade 4','Grade 5','Grade 6'],
+  'Junior Secondary School (J.S.S)':['J.S.S 1','J.S.S 2','J.S.S 3'],
+  'Senior Secondary School (S.S.S)':['S.S.S 1','S.S.S 2','S.S.S 3']
+};
+const COORD = {
+  'Day-care':'Day-care Coordinator','Kindergarten':'Kindergarten Coordinator','Primary (Grades)':'Grade Coordinator',
+  'Junior Secondary School (J.S.S)':'Junior Secondary School Coordinator','Senior Secondary School (S.S.S)':'Senior Secondary School Coordinator'
+};
+const EARLY = ['Day-care','Kindergarten'];
+const DISTRICTS = ['Bo','Bombali','Bonthe','Falaba','Kailahun','Kambia','Karene','Kenema','Koinadugu','Kono','Moyamba','Port Loko','Pujehun','Tonkolili','Western Area Rural','Western Area Urban'];
+ 
+/* ---------------- Field definitions ---------------- */
+const F = (id,label,o={}) => Object.assign({id,label},o);
+const GROUPS = {
+  0:[
+    {title:'Applicant\'s full name', fields:[
+      F('surname','Surname',{req:1}), F('firstName','First name',{req:1}), F('middleName','Middle name',{opt:1})]},
+    {title:'Personal details', fields:[
+      F('gender','Gender',{req:1,type:'select',opts:['Female','Male']}),
+      F('dob','Date of birth',{req:1,type:'date'}),
+      F('pob','Place of birth',{req:1}),
+      F('nationality','Nationality',{req:1,value:'Sierra Leonean'}),
+      F('religion','Religion',{opt:1}),
+      F('birthCertNo','Birth certificate no.',{opt:1})]}
+  ],
+  1:[
+    {title:'Home address', fields:[
+      F('address','Street / house address',{req:1,span:'s6'}),
+      F('town','Town / village',{req:1,span:'s3'}),
+      F('district','District',{req:1,span:'s3',type:'select',opts:DISTRICTS}),
+      F('chiefdom','Chiefdom / ward',{opt:1,span:'s3'})]}
+  ],
+  2:[
+    {title:'Primary parent / guardian', fields:[
+      F('gName','Full name',{req:1,span:'s3'}),
+      F('gRel','Relationship to applicant',{req:1,span:'s3',type:'select',opts:['Mother','Father','Aunt','Uncle','Grandparent','Sibling','Legal guardian']}),
+      F('gOcc','Occupation',{opt:1}),
+      F('gPhone','Phone number',{req:1,type:'tel',ph:'+232 XX XXX XXX'}),
+      F('gWhatsapp','WhatsApp number',{opt:1,type:'tel'}),
+      F('gEmail','Email address',{opt:1,type:'email',span:'s3'}),
+      F('gAddr','Residential address',{req:1,span:'s3'})]},
+    {title:'Second contact', fields:[
+      F('g2Name','Full name',{opt:1,span:'s3'}), F('g2Phone','Phone number',{opt:1,type:'tel',span:'s3'})]},
+    {title:'Person responsible for school fees', fields:[
+      F('feePayer','Fees will be paid by',{req:1,span:'s3',type:'select',opts:['The parent / guardian named above','Another person','A sponsor or organisation']}),
+      F('feePayerName','Name (if different)',{opt:1,span:'s3'})]}
+  ],
+  4:[
+    {title:'Health information', fields:[
+      F('bloodGroup','Blood group',{opt:1,type:'select',opts:['Unknown','O+','O-','A+','A-','B+','B-','AB+','AB-']}),
+      F('allergies','Allergies',{opt:1,type:'textarea',span:'s4',ph:'List known allergies, or write None'}),
+      F('conditions','Medical conditions',{opt:1,type:'textarea',span:'s3',ph:'Ongoing conditions or medication, or write None'}),
+      F('disability','Disability or special learning needs',{opt:1,type:'textarea',span:'s3'})]},
+    {title:'Emergency contact', fields:[
+      F('emName','Contact person',{req:1}), F('emRel','Relationship',{req:1}), F('emPhone','Phone number',{req:1,type:'tel'})]}
+  ]
+};
+ 
+function mk(f){
+  const span = f.span || '';
+  let ctl;
+  const common = `id="${f.id}"${f.ph?` placeholder="${f.ph}"`:''}`;
+  if (f.type==='select') ctl = `<select ${common}><option value="">Select</option>${f.opts.map(o=>`<option>${o}</option>`).join('')}</select>`;
+  else if (f.type==='textarea') ctl = `<textarea ${common} rows="2"></textarea>`;
+  else ctl = `<input type="${f.type||'text'}" ${common}${f.value?` value="${f.value}"`:''}${f.type==='date'?` max="${new Date().toISOString().slice(0,10)}"`:''}>`;
+  return `<div class="f ${span}"><label for="${f.id}">${f.label}${f.req?'<i>*</i>':''}${f.opt?'<em>optional</em>':''}</label>${ctl}<span class="err">Please complete this field</span></div>`;
+}
+Object.entries(GROUPS).forEach(([step,groups])=>{
+  document.getElementById('fields-'+step).innerHTML = groups.map(g=>`<div class="grp"><h4>${g.title}</h4><div class="grid">${g.fields.map(mk).join('')}</div></div>`).join('');
+});
+ 
+/* ---------------- Helpers ---------------- */
+const $ = id => document.getElementById(id);
+const v = id => ($(id) && $(id).value || '').trim();
+const esc = s => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let toastT;
+function toast(m){ const t=$('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),3200); }
+function mark(id,ok){ const el=$(id); if(!el) return ok; const f=el.closest('.f'); if(f) f.classList.toggle('bad',!ok); return ok; }
+document.addEventListener('input', e => { const f=e.target.closest('.f'); if(f) f.classList.remove('bad'); });
+ 
+/* ---------------- Academic selects ---------------- */
+const lg = $('levelGroup'), cl = $('classLevel');
+Object.keys(LEVELS).forEach(k => lg.insertAdjacentHTML('beforeend', `<option>${k}</option>`));
+function syncLevel(){
+  const g = lg.value;
+  cl.disabled = !g;
+  cl.innerHTML = g ? `<option value="">Select class</option>` + LEVELS[g].map(c=>`<option>${c}</option>`).join('') : `<option value="">Select stage first</option>`;
+  if (g && LEVELS[g].length===1) cl.value = LEVELS[g][0];
+  const sss = g === 'Senior Secondary School (S.S.S)';
+  $('streamWrap').hidden = !sss; if(!sss) $('stream').value='';
+  const early = EARLY.includes(g);
+  $('prevOpt').textContent = early ? 'optional' : '';
+  $('prevHint').textContent = early ? 'Optional for Day-care and Kindergarten.' : 'Previous school details are required from Grade 1 upward.';
+  buildUploads();
+}
+lg.addEventListener('change', syncLevel);
+ 
+/* ---------------- Passport photo ---------------- */
+let photoData = '', photoBlob = null;
+$('photoBtn').onclick = () => $('photoInput').click();
+$('photoRemove').onclick = () => setPhoto('', null);
+$('photoInput').addEventListener('change', e => {
+  const file = e.target.files[0]; e.target.value = '';
+  if (!file) return;
+  const err = $('err-photo');
+  if (!/^image\/(jpeg|png|webp)$/.test(file.type)) { err.textContent='Please choose a JPG, PNG or WebP image.'; $('photoBlock').classList.add('bad'); return; }
+  if (file.size > 5*1024*1024) { err.textContent='This photo is larger than 5 MB. Choose a smaller one.'; $('photoBlock').classList.add('bad'); return; }
+  const url = URL.createObjectURL(file), img = new Image();
+  img.onload = () => {
+    const W=360, H=480, c=document.createElement('canvas'); c.width=W; c.height=H;
+    const ctx=c.getContext('2d'), s=Math.max(W/img.width,H/img.height), w=img.width*s, h=img.height*s;
+    ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H); ctx.drawImage(img,(W-w)/2,(H-h)*0.35,w,h);   // passport crop, favours the face
+    URL.revokeObjectURL(url);
+    c.toBlob(b => setPhoto(c.toDataURL('image/jpeg',0.88), b), 'image/jpeg', 0.88);
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); err.textContent='This image could not be read. Try another photo.'; $('photoBlock').classList.add('bad'); };
+  img.src = url;
+});
+function setPhoto(data, blob){
+  photoData = data; photoBlob = blob;
+  const box = $('photoBox');
+  box.classList.toggle('has', !!data);
+  box.innerHTML = data ? `<img src="${data}" alt="Applicant passport photograph">` : '<span>Passport photograph<br>(required)</span>';
+  $('photoRemove').hidden = !data;
+  $('photoBtn').textContent = data ? 'Change photo' : 'Upload photo';
+  $('photoBlock').classList.remove('bad');
+}
+ 
+/* ---------------- Document uploads ---------------- */
+const DOCS = [
+  {id:'birth', label:'Birth certificate', req:()=>true},
+  {id:'report', label:'Last school report / result', req:()=>lg.value && !EARLY.includes(lg.value), sub:'Required from Grade 1 upward'},
+  {id:'immun', label:'Immunisation / health card', req:()=>false, sub:'Optional, recommended for Day-care and Kindergarten'},
+  {id:'letter', label:'Recommendation or transfer letter', req:()=>false, sub:'Optional'}
+];
+const files = {};
+function buildUploads(){
+  $('uploads').innerHTML = DOCS.map(d => `
+    <div class="up" data-doc="${d.id}">
+      <div class="t"><b>${d.label}${d.req()?' <span style="color:var(--danger)">*</span>':''}</b><span>${d.sub || (d.req()?'Required':'Optional')}</span></div>
+      <span class="pill${files[d.id]?' ok':''}">${files[d.id]?esc(files[d.id].name):'Not uploaded'}</span>
+      <button type="button" class="btn sm" data-pick="${d.id}">${files[d.id]?'Replace':'Choose file'}</button>
+      ${files[d.id]?`<button type="button" class="btn sm ghost" data-clear="${d.id}">Remove</button>`:''}
+      <input type="file" accept="application/pdf,image/png,image/jpeg" hidden data-input="${d.id}">
+      <div class="e" hidden></div>
+    </div>`).join('');
+}
+$('uploads').addEventListener('click', e => {
+  const p = e.target.closest('[data-pick]'), c = e.target.closest('[data-clear]');
+  if (p) p.closest('.up').querySelector('input').click();
+  if (c) { delete files[c.dataset.clear]; buildUploads(); }
+});
+$('uploads').addEventListener('change', e => {
+  const inp = e.target.closest('[data-input]'); if(!inp) return;
+  const f = inp.files[0]; if(!f) return;
+  const row = inp.closest('.up'), er = row.querySelector('.e');
+  if (!/^(application\/pdf|image\/(png|jpeg))$/.test(f.type)) { er.textContent='Choose a PDF, JPG or PNG file.'; er.hidden=false; return; }
+  if (f.size > 3*1024*1024) { er.textContent='File is larger than 3 MB.'; er.hidden=false; return; }
+  files[inp.dataset.input] = f; buildUploads();
+});
+ 
+/* ---------------- Stepper & navigation ---------------- */
+const TITLES = ['Applicant','Residence','Guardian','Academic','Medical','Documents','Review'];
+let cur = 0, reached = 0;
+function renderStepper(){
+  $('stepper').innerHTML = TITLES.map((t,i)=>`<button type="button" class="st${i<cur?' done':''}" role="tab" data-go="${i}" aria-selected="${i===cur}"${i>reached?' disabled':''}><b>${i<cur?'&#10003;':i+1}</b>${t}</button>`).join('');
+  $('barFill').style.width = ((cur+1)/7*100)+'%';
+}
+$('stepper').addEventListener('click', e => { const b=e.target.closest('[data-go]'); if(b && !b.disabled) goTo(+b.dataset.go); });
+function goTo(i){
+  cur = i; reached = Math.max(reached, i);
+  document.querySelectorAll('.step').forEach(s => s.classList.toggle('active', +s.dataset.step === i));
+  if (i === 6) renderDoc();
+  renderStepper();
+  $('stepper').scrollIntoView({block:'start'});
+}
+function validate(i){
+  let ok = true, first = null;
+  const need = (id, cond=true) => { const good = !cond || !!v(id); mark(id, good); if(!good){ ok=false; first = first || $(id); } };
+  if (i===0){
+    GROUPS[0].forEach(g=>g.fields.filter(f=>f.req).forEach(f=>need(f.id)));
+    if (!photoData){ $('err-photo').textContent="Please upload the applicant's passport photograph."; $('photoBlock').classList.add('bad'); ok=false; first = first || $('photoBtn'); }
+    if (v('dob') && new Date(v('dob')) > new Date()){ mark('dob',false); ok=false; }
+  }
+  if (i===1||i===2||i===4) GROUPS[i].forEach(g=>g.fields.filter(f=>f.req).forEach(f=>need(f.id)));
+  if (i===2){ if(v('gEmail') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('gEmail'))){ mark('gEmail',false); ok=false; first = first || $('gEmail'); } }
+  if (i===3){
+    ['acadYear','entryTerm','levelGroup','classLevel'].forEach(id=>need(id));
+    need('stream', lg.value==='Senior Secondary School (S.S.S)');
+    need('prevSchool', lg.value && !EARLY.includes(lg.value));
+  }
+  if (i===5){
+    DOCS.filter(d=>d.req()).forEach(d=>{ if(!files[d.id]){ const er=document.querySelector(`.up[data-doc="${d.id}"] .e`); er.textContent='This document is required.'; er.hidden=false; ok=false; first = first || document.querySelector(`.up[data-doc="${d.id}"] button`); } });
+  }
+  if (!ok){ toast('Please complete the highlighted items'); if(first) first.scrollIntoView({block:'center'}); }
+  return ok;
+}
+document.querySelector('.sheet').addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if(!b) return;
+  if (b.dataset.act==='next'){ if(validate(cur)){ saveDraft(true); goTo(cur+1); } }
+  if (b.dataset.act==='back') goTo(cur-1);
+  if (b.dataset.act==='draft') saveDraft();
+});
+ 
+/* ---------------- Draft (saved in this browser) ---------------- */
+function allInputs(){ return [...document.querySelectorAll('#formArea input[id]:not([type=file]):not([type=checkbox]), #formArea select[id], #formArea textarea[id]')]; }
+function saveDraft(silent){
+  try{
+    const d = {vals:{}, photo:photoData, ref};
+    allInputs().forEach(el => d.vals[el.id] = el.value);
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+    if(!silent) toast('Draft saved on this device. Uploaded documents are not stored and must be added again.');
+  }catch(e){ if(!silent) toast('Draft could not be saved in this browser.'); }
+}
+function loadDraft(){
+  try{
+    const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); if(!d) return;
+    allInputs().forEach(el => { if(d.vals[el.id] !== undefined && el.id!=='classLevel') el.value = d.vals[el.id]; });
+    syncLevel(); if(d.vals.classLevel) cl.value = d.vals.classLevel;
+    if (d.photo) { photoData = d.photo; fetch(d.photo).then(r=>r.blob()).then(b=>photoBlob=b); setPhoto(d.photo, photoBlob); }
+    if (d.ref) ref = d.ref;
+    toast('Your saved draft has been restored');
+  }catch(e){}
+}
+ 
+/* ---------------- Application document ---------------- */
+let ref = '';
+function newRef(){ return `GIA/APP/${new Date().getFullYear()}/${String(Math.floor(Math.random()*90000)+10000)}`; }
+const longDate = () => new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+const tr = (k,val,k2,val2) => k2 ? `<tr><td class="k2">${k}</td><td>${esc(val)||'&mdash;'}</td><td class="k2">${k2}</td><td>${esc(val2)||'&mdash;'}</td></tr>`
+                                  : `<tr><td class="k" colspan="1">${k}</td><td colspan="3">${esc(val)||'&mdash;'}</td></tr>`;
+function renderDoc(){
+  if(!ref) ref = newRef();
+  const full = [v('firstName'),v('middleName'),v('surname')].filter(Boolean).join(' ');
+  const fullUp = [v('surname').toUpperCase(), v('firstName'), v('middleName')].filter(Boolean).join(' ');
+  const dob = v('dob') ? new Date(v('dob')+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}) : '';
+  const group = lg.value, coord = COORD[group] || 'Level Coordinator';
+  const stream = v('stream') ? `, ${v('stream')} Department` : '';
+  const docList = DOCS.map(d => `${d.label}: ${files[d.id] ? 'Attached' : (d.req() ? 'Missing' : 'Not supplied')}`);
+  $('doc').innerHTML = `
+  <div class="lh">
+    <img src="${LOGO}" alt="GIA logo">
+    <div class="c">
+      <h2>${SCHOOL.name}</h2>
+      <div class="mo">&ldquo;${SCHOOL.motto}&rdquo;</div>
+      <div class="ad">${SCHOOL.address}<br>Email: ${SCHOOL.email} &nbsp;|&nbsp; Website: ${SCHOOL.web}</div>
+    </div>
+  </div>
+  <div class="ttl"><span>APPLICATION FOR ADMISSION</span><small>Academic Year ${esc(v('acadYear'))} &nbsp;&mdash;&nbsp; ${esc(v('entryTerm'))} entry</small></div>
+  <div class="meta">
+    <div class="l">
+      <div class="refs"><b>Application No.:</b> ${ref}<br><b>Date:</b> ${longDate()}</div>
+      <div class="letter">
+        <p><b>The Principal,</b><br>${SCHOOL.name},<br>${SCHOOL.address}.</p>
+        <p>Dear Sir/Madam,</p>
+        <p><b>RE: APPLICATION FOR ADMISSION INTO ${esc(v('classLevel').toUpperCase())}</b></p>
+        <p>I, <b>${esc(v('gName'))}</b>, the ${esc(v('gRel').toLowerCase())} of <b>${esc(full)}</b>, write to apply for the admission of the above-named applicant into <b>${esc(v('classLevel'))}${esc(stream)}</b> at ${SCHOOL.name} for the <b>${esc(v('entryTerm'))}</b> of the <b>${esc(v('acadYear'))}</b> academic year.</p>
+        <p>I have completed this application form and attached the required documents. I undertake to ensure the applicant's regular attendance and good conduct, to pay school fees promptly, and to abide by the rules and regulations of the Academy.</p>
+        <p>Yours faithfully,</p>
+      </div>
+    </div>
+    <div class="pp">${photoData?`<img src="${photoData}" alt="Passport photograph">`:'Passport<br>photograph'}</div>
+  </div>
+ 
+  <div class="sec"><h3>A. Applicant details</h3><table>
+    ${tr('Full name',fullUp)}
+    ${tr('Gender',v('gender'),'Date of birth',dob)}
+    ${tr('Place of birth',v('pob'),'Nationality',v('nationality'))}
+    ${tr('Religion',v('religion'),'Birth certificate no.',v('birthCertNo'))}
+  </table></div>
+ 
+  <div class="sec"><h3>B. Residence</h3><table>
+    ${tr('Home address',v('address'))}
+    ${tr('Town / village',v('town'),'District',v('district'))}
+    ${v('chiefdom')?tr('Chiefdom / ward',v('chiefdom')):''}
+  </table></div>
+ 
+  <div class="sec"><h3>C. Parent / guardian</h3><table>
+    ${tr('Full name',v('gName'),'Relationship',v('gRel'))}
+    ${tr('Phone',v('gPhone'),'WhatsApp',v('gWhatsapp'))}
+    ${tr('Occupation',v('gOcc'),'Email',v('gEmail'))}
+    ${tr('Residential address',v('gAddr'))}
+    ${v('g2Name')||v('g2Phone')?tr('Second contact',v('g2Name'),'Phone',v('g2Phone')):''}
+    ${tr('Fees paid by',v('feePayer'),'Name',v('feePayerName'))}
+  </table></div>
+ 
+  <div class="sec"><h3>D. Academic details</h3><table>
+    ${tr('School stage',group,'Class applied for',v('classLevel'))}
+    ${tr('Academic year',v('acadYear'),'Term of entry',v('entryTerm'))}
+    ${v('stream')?tr('Department',v('stream')):''}
+    ${tr('Previous school',v('prevSchool'),'Last class completed',v('prevClass'))}
+    ${v('prevReason')?tr('Reason for leaving',v('prevReason')):''}
+  </table></div>
+ 
+  <div class="sec"><h3>E. Medical and emergency</h3><table>
+    ${tr('Blood group',v('bloodGroup'),'Allergies',v('allergies'))}
+    ${tr('Medical conditions',v('conditions'),'Special needs',v('disability'))}
+    ${tr('Emergency contact',v('emName'),'Relationship',v('emRel'))}
+    ${tr('Emergency phone',v('emPhone'))}
+  </table></div>
+ 
+  <div class="sec"><h3>F. Documents submitted</h3><table>
+    ${tr(docList[0].split(':')[0],docList[0].split(': ')[1],docList[1].split(':')[0],docList[1].split(': ')[1])}
+    ${tr(docList[2].split(':')[0],docList[2].split(': ')[1],docList[3].split(':')[0],docList[3].split(': ')[1])}
+  </table></div>
+ 
+  <div class="sec"><h3>G. Declaration</h3>
+    <p style="margin:6px 0 0;text-align:justify">I declare that the information given in this application is true and complete to the best of my knowledge. I agree to abide by the rules and regulations of ${SCHOOL.name}, to pay school fees promptly, and I consent to emergency medical treatment for the applicant if I cannot be reached.</p>
+  </div>
+  <div class="sign">
+    <div><div class="ln">${esc(v('signName'))}</div>Signature of parent / guardian</div>
+    <div><div class="ln">${longDate()}</div>Date</div>
+  </div>
+ 
+  <div class="off"><h3>For official use only</h3><table>
+    <tr><td class="k2">Received by (Senior Administrative Officer)</td><td></td><td class="k2">Date received</td><td></td></tr>
+    <tr><td class="k2">Fees confirmed (Finance Officer)</td><td></td><td class="k2">Receipt no.</td><td></td></tr>
+    <tr><td class="k2">${coord}</td><td></td><td class="k2">Class allocated</td><td></td></tr>
+    <tr><td class="k2">Vice-Principal's recommendation</td><td></td><td class="k2">Admission no.</td><td></td></tr>
+    <tr><td class="k2">Principal's decision</td><td colspan="3">&#9744; Admitted &nbsp;&nbsp;&nbsp; &#9744; Waiting list &nbsp;&nbsp;&nbsp; &#9744; Not admitted &nbsp;&nbsp;&nbsp;&nbsp; Signature: ____________________</td></tr>
+  </table></div>
+  <div class="foot">${SCHOOL.name} (${SCHOOL.short}) &nbsp;|&nbsp; ${SCHOOL.address} &nbsp;|&nbsp; ${SCHOOL.email} &nbsp;|&nbsp; ${SCHOOL.web}</div>`;
+}
+ 
+/* ---------------- Print, PDF, submit ---------------- */
+const fname = () => `GIA-Application-${(v('surname')||'Applicant').replace(/\W+/g,'')}-${v('firstName').replace(/\W+/g,'')}.pdf`;
+function pdfOpts(){ return {margin:[8,8,8,8], filename:fname(), image:{type:'jpeg',quality:.95}, html2canvas:{scale:2,useCORS:true,backgroundColor:'#fff'},
+  jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}, pagebreak:{mode:['css','legacy'],avoid:['.sec','.off','.sign']}}; }
+function ensureDoc(){ renderDoc(); }
+function printDoc(){ ensureDoc(); window.print(); }
+function downloadPdf(){
+  ensureDoc();
+  if (!window.html2pdf){ toast('PDF tool is unavailable offline. In the print window choose "Save as PDF".'); window.print(); return Promise.resolve(); }
+  toast('Preparing PDF...');
+  return html2pdf().set(pdfOpts()).from($('doc')).save().then(()=>toast('PDF downloaded'));
+}
+$('btnPrint').onclick = printDoc; $('btnPdf').onclick = downloadPdf;
+$('donePrint').onclick = printDoc; $('donePdf').onclick = downloadPdf;
+ 
+function validateDeclaration(){
+  let ok = true;
+  ['1','2','3'].forEach(n => { const good = $('decl'+n).checked; $('d'+n).classList.toggle('bad',!good); if(!good) ok=false; });
+  const s = v('signName'); const good = s.length >= 3; mark('signName', good); if(!good) ok=false;
+  if(!ok){ toast('Tick all declarations and type your full name to sign'); }
+  return ok;
+}
+function summaryText(){
+  const lines = [`NEW ADMISSION APPLICATION — ${SCHOOL.name}`, `Application no.: ${ref}`, `Date: ${longDate()}`, '',
+    `Applicant: ${[v('surname').toUpperCase(),v('firstName'),v('middleName')].filter(Boolean).join(' ')}`,
+    `Gender: ${v('gender')}   DOB: ${v('dob')}   Place of birth: ${v('pob')}`,
+    `Class applied for: ${v('classLevel')} (${v('levelGroup')}${v('stream')?', '+v('stream'):''}) — ${v('entryTerm')}, ${v('acadYear')}`,
+    `Residence: ${v('address')}, ${v('town')}, ${v('district')}`,
+    `Parent/guardian: ${v('gName')} (${v('gRel')}) — ${v('gPhone')} ${v('gEmail')}`,
+    `Emergency contact: ${v('emName')} (${v('emRel')}) — ${v('emPhone')}`,
+    `Previous school: ${v('prevSchool')||'-'}`, '', 'Full application form is attached as PDF.'];
+  return lines.join('\n');
+}
+$('btnSubmit').onclick = async () => {
+  if (!validateDeclaration()) return;
+  renderDoc();
+  const btn = $('btnSubmit'); btn.disabled = true; btn.textContent = 'Submitting...';
+  let sent = false;
+  try{
+    const fd = new FormData();
+    fd.append('_subject', `GIA Application ${ref} — ${v('firstName')} ${v('surname')} (${v('classLevel')})`);
+    fd.append('_captcha','false'); fd.append('_template','table');
+    if (v('gEmail')) fd.append('email', v('gEmail'));
+    fd.append('Application no.', ref);
+    fd.append('Applicant', `${v('firstName')} ${v('middleName')} ${v('surname')}`.replace(/\s+/g,' '));
+    fd.append('Class applied for', `${v('classLevel')} — ${v('entryTerm')}, ${v('acadYear')}`);
+    fd.append('Parent/guardian', `${v('gName')} (${v('gRel')}) ${v('gPhone')}`);
+    fd.append('message', summaryText());
+    let total = 0;
+    if (window.html2pdf){
+      const pdf = await html2pdf().set(pdfOpts()).from($('doc')).outputPdf('blob');
+      fd.append('attachment', pdf, fname()); total += pdf.size;
+    }
+    if (photoBlob && total + photoBlob.size < 4.5e6){ fd.append('attachment', photoBlob, 'passport-photo.jpg'); total += photoBlob.size; }
+    for (const d of DOCS){ const f = files[d.id]; if (f && total + f.size < 4.5e6){ fd.append('attachment', f, `${d.id}-${f.name}`); total += f.size; } }
+    const res = await fetch(`https://formsubmit.co/ajax/${RECIPIENT}`, {method:'POST', headers:{'Accept':'application/json'}, body:fd});
+    const j = await res.json().catch(()=>({}));
+    sent = res.ok && (j.success === true || j.success === 'true');
+  }catch(e){ sent = false; }
+  btn.disabled = false; btn.textContent = 'Submit application';
+  showDone(sent);
+};
+function showDone(sent){
+  $('formArea').hidden = true; $('doneArea').hidden = false;
+  $('doneRef').textContent = 'Application no. ' + ref;
+  if (sent){
+    $('doneTitle').textContent = 'Application submitted';
+    $('doneText').innerHTML = `Your application has been sent to the school. Keep your application number and download or print a copy for your records.`;
+  } else {
+    $('doneTitle').textContent = 'Application ready to send';
+    const body = encodeURIComponent(summaryText() + '\n\nPlease find the application PDF attached.');
+    $('doneText').innerHTML = `We could not send it automatically. Download the PDF, then email it to <b>${RECIPIENT}</b>. <br><a href="mailto:${RECIPIENT}?subject=${encodeURIComponent('GIA Application '+ref)}&body=${body}" style="color:var(--navy);font-weight:600">Open an email with the details filled in</a>`;
+  }
+  try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
+  window.scrollTo({top:0});
+}
+$('doneView').onclick = () => { $('doneArea').hidden = true; $('formArea').hidden = false; goTo(6); };
+$('doneNew').onclick = () => {
+  if(!confirm('Start a new application? The current form will be cleared.')) return;
+  allInputs().forEach(el => { el.value = el.id==='nationality' ? 'Sierra Leonean' : (el.tagName==='SELECT'?'':''); });
+  $('acadYear').selectedIndex = 0; ['decl1','decl2','decl3'].forEach(i=>$(i).checked=false);
+  Object.keys(files).forEach(k=>delete files[k]); setPhoto('',null); ref=''; syncLevel();
+  $('doneArea').hidden = true; $('formArea').hidden = false; reached = 0; goTo(0);
+};
+ 
+/* ---------------- Init ---------------- */
+
+/* ---------------- Admission gate (reads js/admission-config.js) ---------------- */
+const STAGE_KEY = {'Day-care':'daycare','Kindergarten':'kindergarten','Primary (Grades)':'grade','Junior Secondary School (J.S.S)':'jss','Senior Secondary School (S.S.S)':'sss'};
+const KEY_STAGE = Object.fromEntries(Object.entries(STAGE_KEY).map(([a,b]) => [b,a]));
+function stageOpen(){ const k = STAGE_KEY[lg.value]; return !k || !window.GIA || GIA.admission.stage(k).state === 'open'; }
+const _validate = validate;
+validate = function(i){ const ok = _validate(i); if (i === 3 && !stageOpen()){ $('admWarn').hidden = false; return false; } $('admWarn').hidden = true; return ok; };
+const want = new URLSearchParams(location.search).get('level');
+if (want && KEY_STAGE[want] && !lg.value){ lg.value = KEY_STAGE[want]; }
+if (window.GIA && GIA.admission.status().state !== 'open'){ $('formArea').hidden = true; $('closedArea').hidden = false; }
+
+syncLevel(); loadDraft(); renderStepper();
+</script>
+<script src="js/nav.js"></script>
+</body>
+</html>
+ 

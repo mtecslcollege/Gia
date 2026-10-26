@@ -1,0 +1,10 @@
+# Netlify build for the GIA portal (TanStack Start + Nitro). Tested: `NITRO_PRESET=netlify vite build`
+# writes static files to dist/ and the server to .netlify/functions-internal.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NITRO_PRESET = "netlify"
+  NPM_FLAGS = "--legacy-peer-deps"

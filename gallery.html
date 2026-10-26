@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>School Gallery | Gbonkolenken International Academy</title>
+<meta name="description" content="Photographs of the classrooms, science laboratories, library, computer room and early years rooms at Gbonkolenken International Academy, Makeni.">
+<meta property="og:title" content="School Gallery | Gbonkolenken International Academy">
+<meta property="og:description" content="Photographs of the classrooms, science laboratories, library, computer room and early years rooms at Gbonkolenken International Academy, Makeni.">
+<meta property="og:image" content="images/hero-campus.jpg">
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/pages.css">
+<script>document.documentElement.className='js'</script>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0A2A66">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GIA">
+<link rel="apple-touch-icon" href="images/icon-192.png">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+<div id="gia-header"><noscript><nav aria-label="Main navigation" style="padding:12px 20px;background:#0A2A66;color:#fff"><a href="index.html">Home</a> <a href="about.html">About Us</a> <a href="Academic_programs.html">Academic Programmes</a> <a href="department.html">Departments</a> <a href="campus-life.html">Campus Life</a> <a href="gallery.html">Gallery</a> <a href="staff.html">Staff</a> <a href="contact-us.html">Contact Us</a> <a href="online_registration.html">Online Registration</a> <a href="https://giasl.lovable.app/portal">School Portal</a> <a href="privacy-terms.html">Privacy Policy &amp; Terms</a> </nav></noscript></div>
+<main id="main">
+<section class="phero p-gallery"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> › School Gallery</nav><h1>School Gallery</h1><p>A look inside our classrooms, laboratories, library and early years rooms at Gbonkolenken International Academy.</p></div></section>
+<section class="sec" aria-labelledby="h-gal"><div class="wrap"><div class="head rv"><span class="kick">Life at GIA</span><h2 id="h-gal" style="color:var(--navy)">Our school in pictures</h2><p class="lead">Choose a category, then select any photograph to enlarge it. Use the arrow keys or swipe to move between photographs.</p></div>
+<div class="fbar" id="gf" role="group" aria-label="Filter photographs"></div><p class="count" id="gc" aria-live="polite"></p><div class="ggrid" id="gg"></div>
+<p style="color:var(--is);font-size:14px;margin-top:22px">Photographs of children are shown to give parents a true picture of school life. A parent or guardian may ask the school office to remove any photograph of their child. School staff: add <strong>#admin</strong> to this page's address to add photographs.</p></div></section>
+<section class="sec alt" aria-label="Explore more"><div class="wrap"><div class="pic-cards">
+<a class="pc rv" href="campus-life.html" style="text-decoration:none;color:inherit"><img src="images/corridor.jpg" alt="School corridor" loading="lazy"><div><h3>Campus Life</h3><p>See how a school day, our facilities and student support fit together.</p></div></a>
+<a class="pc rv" href="Academic_programs.html" style="text-decoration:none;color:inherit"><img src="images/lab-chemistry.jpg" alt="Chemistry laboratory" loading="lazy"><div><h3>Academic Programmes</h3><p>Explore every level from Day-care to Senior Secondary.</p></div></a>
+<a class="pc rv" href="staff.html" style="text-decoration:none;color:inherit"><img src="images/kindergarten.jpg" alt="Kindergarten classroom" loading="lazy"><div><h3>Meet Our Staff</h3><p>The people who care for and teach your child.</p></div></a></div></div></section>
+<section class="sec band"><div class="wrap rv"><h2>Come and see GIA for yourself</h2><p>Photographs are only a beginning. Visit us in Makama, Makeni, and meet the school family.</p><div class="cta"><a class="btn gold" href="contact-us.html#find">Find the School</a><a class="btn line" href="online_registration.html">Apply Online</a></div></div></section><script>document.addEventListener("DOMContentLoaded",function(){var g=GIA.gallery.mount({grid:"gg",filters:"gf",count:"gc"});GIA.content.panel({title:"Gallery panel",onChange:g.redraw,forms:[{title:"Add a photograph",btn:"Add photograph",max:1100,fields:[{n:"src",l:"Photograph",t:"file",req:1},{n:"cap",l:"Caption",req:1},{n:"cat",l:"Category",t:"select",o:function(){return g.categories().map(function(c){return[c,c]})}}],submit:function(v,c){c.gallery.unshift({src:v.src,cap:v.cap,cat:v.cat})}}]})});</script>
+</main>
+<div id="gia-footer"></div>
+<script src="js/nav.js"></script>
+<script src="js/content-data.js"></script><script src="js/content.js"></script><script src="js/gallery.js"></script>
+</body>
+</html>

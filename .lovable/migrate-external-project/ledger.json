@@ -1,0 +1,8 @@
+{
+  "scope": "Reference-based public website refresh; preserve existing ERP and Lovable Cloud accounts",
+  "capabilities": [
+    {"capability":"Public website content and images","source":"GIA-FINAL_WEBSITE.zip","outcome":"adapt","status":"in_progress","next_action":"Use supplied school images and verified wording in existing public pages"},
+    {"capability":"Existing school system and accounts","source":"Current project","outcome":"preserve","status":"unchanged","next_action":"Keep existing authenticated school workflows untouched"},
+    {"capability":"Archive forms and external integrations","source":"Uploaded HTML and JavaScript","outcome":"reference_only","status":"inspection_pending","next_action":"Inspect source integrations; do not replace working school system or activate new services"}
+  ]
+}

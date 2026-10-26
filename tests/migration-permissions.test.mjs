@@ -1,0 +1,117 @@
+import { PGlite } from '@electric-sql/pglite';
+import fs from 'fs';
+const db = new PGlite();
+const out=[]; let fail=0;
+const ok=(n,c)=>{out.push((c?'PASS ':'FAIL ')+n); if(!c) fail++;};
+await db.exec(`
+create role anon nologin; create role authenticated nologin; create role service_role nologin bypassrls;
+create schema auth;
+create table auth.users(id uuid primary key default gen_random_uuid(), email text, raw_user_meta_data jsonb default '{}');
+create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true),'')::uuid $$;
+grant usage on schema public, auth to anon, authenticated, service_role;
+alter default privileges in schema public grant execute on functions to anon, authenticated, service_role;
+`);
+await db.exec(fs.readFileSync('m1.sql','utf8'));
+await db.exec(fs.readFileSync('/home/claude/out/supabase/migrations/20261026000000_add_exam_roles.sql','utf8'));
+await db.exec(fs.readFileSync('/home/claude/out/supabase/migrations/20261026000100_foundation.sql','utf8'));
+out.push('migrations applied');
+const as = async (uid, sql, params=[]) => { await db.exec(`reset role; select set_config('request.jwt.claim.sub','${uid||''}',false); set role ${uid?'authenticated':'anon'};`); return db.query(sql, params); };
+const tryq = async (uid, sql, params) => { try { const r = await as(uid, sql, params); return {ok:true, r}; } catch(e){ return {ok:false, e:e.message}; } };
+const U = {}; 
+for (const [k,role] of [['principal',null],['admin','admin'],['teacher','teacher'],['teacher2','teacher'],['finance','finance'],['examo','exam_officer'],['parent','parent'],['vp','vice_principal']]) {
+  const r = await db.query(`insert into auth.users(email, raw_user_meta_data) values ($1, $2::jsonb) returning id`, [k+'@t.test', JSON.stringify({requested_role: role||'parent', full_name:k})]);
+  U[k]=r.rows[0].id;
+}
+// first user = principal+admin bootstrap
+const first = (await db.query(`select approved from profiles where id=$1`,[U.principal])).rows[0];
+ok('first signup bootstrapped as approved principal', first.approved===true);
+const second = (await db.query(`select approved from profiles where id=$1`,[U.admin])).rows[0];
+ok('second signup NOT auto-approved', second.approved===false);
+await as(U.principal, `select approve_user($1,'admin')`,[U.admin]);
+for (const [k,r] of [['teacher','teacher'],['teacher2','teacher'],['finance','finance'],['examo','exam_officer'],['parent','parent'],['vp','vice_principal']])
+  await as(U.admin, `select approve_user($1,$2::app_role)`,[U[k],r]);
+// data
+await db.exec('reset role');
+const st = (await db.query(`select id, class_name from students where adm_no='GIA001'`)).rows[0];
+const st2 = (await db.query(`select id from students where adm_no='GIA002'`)).rows[0];
+ok('classes backfilled from students', (await db.query(`select count(*)::int c from classes`)).rows[0].c===6);
+ok('opening balances migrated', (await db.query(`select count(*)::int c from fee_charges where kind='opening_balance'`)).rows[0].c===20);
+const yr=(await db.query(`insert into academic_years(name,is_current) values('2026/2027',true) returning id`)).rows[0].id;
+const term=(await db.query(`insert into terms(academic_year_id,name,seq) values($1,'First Term',1) returning id`,[yr])).rows[0].id;
+const cls=(await db.query(`select id from classes where name='JSS 1'`)).rows[0].id;
+const sub=(await db.query(`insert into subjects(code,name) values('MTH','Mathematics') returning id`)).rows[0].id;
+await db.query(`insert into enrolments(student_id,class_id,academic_year_id) values($1,$2,$3)`,[st.id,cls,yr]);
+await db.query(`insert into teaching_assignments(teacher_id,class_id,subject_id,academic_year_id) values($1,$2,$3,$4)`,[U.teacher,cls,sub,yr]);
+await db.query(`insert into parent_students values($1,$2)`,[U.parent,st.id]);
+// GRADES
+let r = await tryq(U.teacher2, `insert into grades(student_id,class_id,subject_id,term_id,test_score,exam_score) values($1,$2,$3,$4,20,60)`,[st.id,cls,sub,term]);
+ok('unassigned teacher cannot insert grade', !r.ok);
+r = await tryq(U.teacher, `insert into grades(student_id,class_id,subject_id,term_id,test_score,exam_score) values($1,$2,$3,$4,20,60) returning id`,[st.id,cls,sub,term]);
+ok('assigned teacher inserts draft grade', r.ok); const gid = r.r?.rows[0].id;
+r = await tryq(U.teacher, `insert into grades(student_id,class_id,subject_id,term_id,test_score) values($1,$2,$3,$4,10)`,[st2.id,cls,sub,term]);
+ok('cannot grade a pupil not enrolled in the class', !r.ok);
+r = await tryq(U.teacher, `insert into grades(student_id,class_id,subject_id,term_id,test_score,exam_score) values($1,$2,$3,$4,10,200)`,[st.id,cls,sub,term]);
+ok('score above 100 rejected', !r.ok);
+r = await tryq(U.teacher, `update grades set status='Published' where id=$1`,[gid]);
+ok('teacher cannot set status directly', !r.ok);
+r = await tryq(U.teacher, `select transition_grades($1::uuid[],'Published')`,[[gid]]);
+ok('teacher cannot publish', !r.ok);
+r = await tryq(U.parent, `select count(*)::int c from grades`);
+ok('parent sees no unpublished grades', r.ok && r.r.rows[0].c===0);
+r = await tryq(U.teacher, `select transition_grades($1::uuid[],'Submitted')`,[[gid]]);
+ok('teacher submits', r.ok);
+r = await tryq(U.teacher, `update grades set exam_score=99 where id=$1`,[gid]);
+ok('submitted marks are locked for teacher', r.ok && r.r.affectedRows===0 || !r.ok);
+r = await tryq(U.teacher, `select transition_grades($1::uuid[],'Verified')`,[[gid]]);
+ok('teacher cannot verify own marks', !r.ok);
+r = await tryq(U.examo, `select transition_grades($1::uuid[],'Verified')`,[[gid]]);
+ok('exam officer verifies', r.ok);
+r = await tryq(U.examo, `select transition_grades($1::uuid[],'Approved')`,[[gid]]);
+ok('exam officer cannot approve', !r.ok);
+r = await tryq(U.vp, `select transition_grades($1::uuid[],'Approved')`,[[gid]]);
+ok('vice principal approves', r.ok);
+r = await tryq(U.principal, `select transition_grades($1::uuid[],'Published')`,[[gid]]);
+ok('publish blocked while no grading scale configured', !r.ok && /Grading scale/.test(r.e||''));
+await db.exec(`reset role`);
+const sc=(await db.query(`insert into grading_scales(name,active) values('test-scale',true) returning id`)).rows[0].id;
+await db.query(`insert into grade_boundaries(scale_id,grade,min_score,max_score) values($1,'A',70,100),($1,'F',0,69.99)`,[sc]);
+r = await tryq(U.principal, `select transition_grades($1::uuid[],'Published')`,[[gid]]);
+ok('principal publishes once scale exists', r.ok);
+r = await tryq(U.parent, `select test_score from grades`);
+ok('parent now sees published grade', r.ok && r.r.rows.length===1);
+r = await tryq(U.principal, `select transition_grades($1::uuid[],'Draft')`,[[gid]]);
+ok('reopening published grade needs a reason', !r.ok);
+r = await tryq(U.principal, `select transition_grades($1::uuid[],'Draft','Teacher entered wrong exam mark')`,[[gid]]);
+ok('principal reopens with reason', r.ok);
+r = await tryq(U.principal, `select grade_letter, mean_score from grade_results where id=$1`,[gid]);
+ok('grade_results computes (test+exam)/2 and letter', r.ok && Number(r.r.rows[0].mean_score)===40 && r.r.rows[0].grade_letter==='F');
+ok('status history recorded', (await as(U.principal,`select count(*)::int c from grade_status_history`)).rows[0].c===5);
+// PAYMENTS
+r = await tryq(U.finance, `insert into payments(student_id,amount,purpose,method,client_uuid) values($1,500,'School fees','Cash',gen_random_uuid()) returning id, receipt_no`,[st.id]);
+ok('finance records payment', r.ok); const pid=r.r?.rows[0].id;
+r = await tryq(U.finance, `update payments set amount=1 where id=$1`,[pid]); ok('finance cannot edit payment', !r.ok);
+r = await tryq(U.finance, `delete from payments where id=$1`,[pid]); ok('finance cannot delete payment', !r.ok);
+r = await tryq(U.finance, `select reverse_payment($1,'wrong student paid')`,[pid]); ok('finance cannot reverse payment', !r.ok);
+r = await tryq(U.admin, `select reverse_payment($1,'ab')`,[pid]); ok('reversal needs a proper reason', !r.ok);
+r = await tryq(U.admin, `select reverse_payment($1,'Recorded against wrong pupil')`,[pid]); ok('admin reverses payment', r.ok);
+r = await tryq(U.principal, `select reverse_payment($1,'Second reversal attempt')`,[pid]); ok('cannot reverse twice', !r.ok);
+r = await tryq(U.finance, `insert into payments(student_id,amount,purpose,method,kind) values($1,5,'x','Cash','reversal')`,[st.id]); ok('finance cannot insert reversal directly', !r.ok);
+r = await tryq(U.finance, `select paid, charged, balance from student_fee_balances where adm_no='GIA001'`);
+ok('balance = charged - net paid (500 paid then reversed)', r.ok && Number(r.r.rows[0].paid)===0 && Number(r.r.rows[0].balance)===2400000);
+r = await tryq(U.teacher, `select count(*)::int c from student_fee_balances`); ok('teacher sees no balances', r.ok && r.r.rows[0].c===0);
+r = await tryq(U.parent, `select count(*)::int c from student_fee_balances`); ok('parent sees only own child balance', r.ok && r.r.rows[0].c===1);
+r = await tryq(U.admin, `insert into fee_charges(student_id,academic_year,description,kind,amount) values($1,'2026/2027','Scholarship','discount',-100000)`,[st.id]); ok('management adds discount', r.ok);
+r = await tryq(U.finance, `insert into fee_charges(student_id,academic_year,description,kind,amount) values($1,'2026/2027','Free','discount',-5)`,[st.id]); ok('finance cannot add discount', !r.ok);
+// ATTENDANCE
+await db.exec(`reset role`); await db.query(`update classes set form_teacher_id=$1 where id=$2`,[U.teacher2,cls]);
+r = await tryq(U.teacher, `insert into attendance_sessions(class_id,session_date) values($1,current_date) returning id`,[cls]); ok('assigned teacher opens attendance', r.ok); const sid=r.r?.rows[0].id;
+r = await tryq(U.teacher, `insert into attendance_records(session_id,student_id,status) values($1,$2,'Present')`,[sid,st.id]); ok('records attendance', r.ok);
+r = await tryq(U.finance, `insert into attendance_records(session_id,student_id,status) values($1,$2,'Absent')`,[sid,st2.id]); ok('finance cannot write attendance', !r.ok);
+// SECURITY
+r = await tryq(null, `select public.is_staff('${U.teacher}')`); ok('anon cannot call role helpers', !r.ok);
+r = await tryq(null, `select * from school_settings`); ok('anon can still read public settings', r.ok && r.r.rows[0].school_name==='Gbonkolenken International Academy');
+r = await tryq(U.principal, `select count(*)::int c from audit_log`); ok('audit log captured changes', r.ok && r.r.rows[0].c>10);
+r = await tryq(U.principal, `delete from audit_log`); ok('audit log cannot be deleted', !r.ok);
+r = await tryq(U.teacher, `select count(*)::int c from audit_log`); ok('teacher cannot read audit log', r.ok && r.r.rows[0].c===0);
+r = await tryq(U.admin, `select count(*)::int c from audit_log where table_name='user_roles'`); ok('role grants are audited', r.ok && r.r.rows[0].c>=5);
+console.log(out.join('\n')); console.log('FAILURES:',fail);

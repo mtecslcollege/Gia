@@ -1,0 +1,84 @@
+/* =====================================================================
+   GIA SHARED SHELL  (css/nav.css)
+   Design tokens, base typography, top bar, header, main navigation, footer.
+   Load this file FIRST on every page, together with js/nav.js.
+   Colours: Dark Blue (--navy) and Butter (--b / --bd).
+   ===================================================================== */
+:root{--navy:#132B5A;--nd:#07183A;--nm:#1D3F80;--b:#F7D98A;--bs:#FDF1D4;--bd:#EDB333;--bi:#8A6410;--ink:#1F2733;--is:#5C646F;--line:#DDE2E8;--paper:#FEFCF6;--ok:#22864A;--bad:#B3261E}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:130px}
+body{margin:0;background:#F9FAFC;color:var(--ink);font:16px/1.65 'Source Sans 3',system-ui,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Libre Baskerville',Georgia,serif;line-height:1.22;margin:0}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--bd);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-999px;top:0;background:var(--b);color:var(--nd);padding:10px 16px;z-index:300;font-weight:600}
+.skip:focus{left:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:999px;font:600 14.5px 'Source Sans 3',sans-serif;text-decoration:none;border:2px solid transparent;transition:.2s;cursor:pointer;text-align:center}
+.btn.gold{background:var(--bd);color:var(--nd)}.btn.gold:hover{background:var(--b);transform:translateY(-2px)}
+.btn.line{border-color:var(--b);color:#fff}.btn.line:hover{background:rgba(247,233,168,.16)}
+.btn.navy{background:var(--navy);color:#fff}.btn.navy:hover{background:var(--nm)}
+.btn.ghost{border-color:var(--navy);color:var(--navy)}.btn.ghost:hover{background:var(--navy);color:#fff}
+.btn[disabled],.btn.is-closed{opacity:.9}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+
+#gia-header .btn,#gia-footer .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:999px;font:600 14.5px 'Source Sans 3',sans-serif;text-decoration:none;border:2px solid transparent;background:none;color:inherit;box-shadow:none}
+#gia-header .btn.gold{background:var(--bd);color:var(--nd)}#gia-header .btn.gold:hover{background:var(--b)}
+#gia-header .btn.line{border-color:var(--b);color:#fff}#gia-header .btn.line:hover{background:rgba(247,233,168,.16)}
+#gia-header .badge{width:58px;height:58px;border:3px solid var(--bd);background:#fff}
+
+/* Top information bar */
+.topbar{background:var(--nd);color:#B9C6E3;font-size:13px}
+.topbar .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:7px;padding-bottom:7px}
+.topbar a{text-decoration:none}.topbar a:hover{color:var(--b)}
+.topbar .l span+span{margin-left:18px}
+
+/* Header + main navigation */
+#gia-header{min-height:142px}
+header.site{position:sticky;top:0;z-index:100;box-shadow:0 3px 14px rgba(6,27,69,.35)}
+.hd{background:var(--navy);border-bottom:3px solid var(--bd)}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:10px;padding-bottom:10px}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none;color:#fff}
+.badge{width:58px;height:58px;border-radius:50%;background:#fff;border:3px solid var(--bd);display:grid;place-items:center;overflow:hidden;flex:none}
+.badge img{width:50px}
+.brand b{font:600 18px 'Libre Baskerville',Georgia,serif;display:block;line-height:1.15}
+.brand small{font-size:12.5px;color:var(--b);font-style:italic}
+nav.main{background:var(--nm)}
+nav.main ul{list-style:none;margin:0 auto;padding:0 20px;max-width:1180px;display:flex;justify-content:center;flex-wrap:wrap}
+nav.main a{display:block;padding:12px 17px;color:#fff;text-decoration:none;font-weight:500;font-size:14.5px;border-bottom:3px solid transparent}
+nav.main a:hover{background:rgba(255,255,255,.1)}
+nav.main a[aria-current]{border-color:var(--b);background:rgba(0,0,0,.2);color:var(--b)}
+nav.main .mob{display:none}
+.burger{display:none;background:none;border:1.5px solid var(--bd);color:var(--b);border-radius:8px;padding:8px 14px;font:600 14px 'Source Sans 3',sans-serif;cursor:pointer}
+
+/* Footer */
+footer.site{background:var(--nd);color:#B9C6E3;font-size:14.5px;border-top:4px solid var(--bd)}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;gap:34px;padding-top:50px;padding-bottom:36px}
+footer.site h4{color:var(--b);font-size:17px;margin-bottom:12px}
+footer.site ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+footer.site a{text-decoration:none}footer.site a:hover{color:var(--b);text-decoration:underline}
+footer.site p{margin:0 0 8px}
+.fb{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.fb img{width:64px;background:#fff;border-radius:50%;padding:5px}
+.fb b{font:600 18px 'Libre Baskerville',Georgia,serif;color:#fff}
+.soc{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.soc a{border:1px solid rgba(247,233,168,.4);border-radius:999px;padding:4px 12px;font-size:13px}
+.copy{border-top:1px solid rgba(255,255,255,.12);padding:16px 20px;text-align:center;font-size:13px}
+.totop{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:2px solid var(--bd);background:var(--navy);color:var(--b);font-size:20px;cursor:pointer;opacity:0;pointer-events:none;transition:.25s;z-index:90}
+.totop.on{opacity:1;pointer-events:auto}
+
+@media(max-width:960px){
+#gia-header{min-height:92px}
+.cta.d{display:none}.burger{display:block}
+nav.main{display:none}nav.main.open{display:block}
+nav.main ul{flex-direction:column;padding:0}
+nav.main li{border-top:1px solid rgba(255,255,255,.12)}
+nav.main .mob{display:block}
+.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.fg{grid-template-columns:1fr}.topbar .l span:last-child{display:none}.brand b{font-size:15.5px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{header.site,.topbar,footer.site,.totop{display:none}}

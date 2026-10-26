@@ -1,0 +1,15 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight, Expand } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { SiteLayout, PageHero } from "@/components/gia/SiteLayout";
+import { galleryPhotos, schoolPhotos } from "@/lib/school-site";
+import { seo } from "@/lib/seo";
+export const Route=createFileRoute("/gallery")({head:()=>seo("GIA Gallery — Our Campus & Learning Spaces", "Explore real photographs of Gbonkolenken International Academy: campus, early-years classrooms, science laboratories, computer room and library."),component:Gallery});
+const cats=["All","Campus","Early Years","Laboratories","Learning Spaces"];
+function Gallery(){const[cat,setCat]=useState("All");const[active,setActive]=useState<number|null>(null);const list=galleryPhotos.filter(p=>cat==="All"||p.cat===cat);const photo=active===null?undefined:list[active];return <SiteLayout>
+<PageHero eyebrow="Inside the Seat of Wisdom" title="Our Campus Gallery" text="A closer look at the spaces where our learners explore, discover and grow." image={schoolPhotos.front}/>
+<section className="mx-auto max-w-7xl px-5 py-12"><div className="flex flex-wrap gap-2">{cats.map(c=><Button key={c} variant={cat===c?"default":"outline"} aria-pressed={cat===c} onClick={()=>{setCat(c);setActive(null);}}>{c}</Button>)}</div><div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">{list.map((p,i)=><figure key={p.title}><Button variant="ghost" className="group relative block h-auto w-full overflow-hidden rounded-lg p-0" onClick={()=>setActive(i)} aria-label={`View ${p.title}`}><img src={p.src} alt={p.title} loading="lazy" className="aspect-[4/3] w-full object-cover"/><span className="absolute bottom-3 right-3 grid h-8 w-8 place-items-center rounded bg-primary text-primary-foreground"><Expand className="h-4 w-4"/></span></Button><figcaption className="mt-3"><p className="font-semibold text-primary">{p.title}</p><p className="mt-1 text-xs text-muted-foreground">{p.cat}</p></figcaption></figure>)}</div></section>
+<Dialog open={photo!==undefined} onOpenChange={open=>{if(!open)setActive(null);}}><DialogContent className="max-w-4xl bg-card p-4 sm:p-6" aria-describedby={undefined}>{photo&&<><div className="flex items-center justify-between gap-4"><DialogTitle>{photo.title}</DialogTitle></div><img src={photo.src} alt={photo.title} className="max-h-[65vh] w-full object-contain"/><div className="flex items-center justify-between"><Button variant="outline" size="icon" aria-label="Previous photograph" onClick={()=>setActive(a=>a===null?0:(a+list.length-1)%list.length)}><ChevronLeft/></Button><p className="text-sm text-muted-foreground">{(active??0)+1} / {list.length}</p><Button variant="outline" size="icon" aria-label="Next photograph" onClick={()=>setActive(a=>a===null?0:(a+1)%list.length)}><ChevronRight/></Button></div></>}</DialogContent></Dialog>
+</SiteLayout>;}

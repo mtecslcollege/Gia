@@ -1,0 +1,131 @@
+/* =====================================================================
+   GIA MOBILE-FIRST LAYER (css/mobile.css) - load LAST on every page.
+   Phone styles are the default; desktop refinements sit in min-width
+   queries at the bottom. Brand refresh: Seat of Wisdom - navy + butter.
+   ===================================================================== */
+:root{--r:12px;--tap:48px;--sab:env(safe-area-inset-bottom,0px);--sat:env(safe-area-inset-top,0px);
+--bg:#F9FAFC;--shadow:0 6px 20px rgba(6,27,69,.12)}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:72px}
+body{background:var(--bg);font-size:16px;line-height:1.6;padding-bottom:calc(68px + var(--sab));overscroll-behavior-y:none;-webkit-tap-highlight-color:rgba(226,201,92,.35)}
+img{height:auto}
+.wrap{padding-inline:16px}
+
+/* Header: slim app bar on phones */
+.topbar{display:none}
+#gia-header{min-height:64px}
+header.site{padding-top:var(--sat)}
+.hd .wrap{padding-block:8px}
+.badge,#gia-header .badge{width:44px;height:44px;border-width:2px}
+.badge img{width:36px}
+.brand b{font-size:15px}.brand small{font-size:12px}
+.burger{display:none}
+.cta.d{display:none}
+nav.main{position:fixed;inset:calc(60px + var(--sat)) 0 calc(64px + var(--sab)) 0;overflow-y:auto;z-index:99;background:var(--nd);display:none}
+nav.main.open{display:block}
+nav.main a{padding:16px 22px;font-size:17px;min-height:var(--tap);border-bottom:0;border-left:4px solid transparent}
+nav.main a[aria-current]{border-left-color:var(--bd);background:rgba(255,255,255,.08)}
+
+/* Bottom tab bar (thumb zone) */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:120;display:grid;grid-template-columns:repeat(5,1fr);background:var(--paper);border-top:2px solid var(--bd);padding-bottom:var(--sab);box-shadow:0 -6px 18px rgba(6,27,69,.14)}
+.tabbar a,.tabbar button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:60px;padding:6px 2px;background:none;border:0;color:var(--is);font:600 11.5px 'Source Sans 3',sans-serif;text-decoration:none;cursor:pointer}
+.tabbar svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tabbar a[aria-current],.tabbar button[aria-expanded="true"]{color:var(--navy)}
+.tabbar a[aria-current] svg{stroke:var(--navy);fill:var(--b)}
+.tabbar .apply{color:var(--nd)}
+.tabbar .apply span.ic{display:grid;place-items:center;width:46px;height:46px;margin-top:-22px;border-radius:50%;background:var(--bd);border:3px solid var(--paper);box-shadow:var(--shadow)}
+.totop{bottom:calc(76px + var(--sab));right:14px}
+
+/* Hero + sections */
+.hero{min-height:auto}
+.hero .wrap{padding-top:44px;padding-bottom:84px}
+.hero h1{font-size:clamp(34px,10vw,48px)}
+.hero p{font-size:17px}
+.hero .cta,.band .cta{flex-direction:column;align-items:stretch}
+.btn{min-height:var(--tap);padding:12px 22px;font-size:16px}
+.stats{grid-template-columns:1fr 1fr;margin-top:-44px}
+.stats b{font-size:26px}.stats span{font-size:13px}
+.sec{padding:44px 0}
+.sec h2{font-size:clamp(26px,7vw,34px)}
+.two{grid-template-columns:1fr;gap:34px}
+.frame::after{display:none}.frame .seal{width:80px;right:8px;bottom:-24px}
+.phero{padding:44px 0 38px}
+.phero h1{font-size:clamp(30px,8.5vw,44px)}
+.phero p{font-size:16.5px}
+
+/* Cards: horizontal swipe rows instead of long stacks */
+.stages{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:6px 16px 14px;scrollbar-width:none}
+.stages::-webkit-scrollbar{display:none}
+.stage{flex:0 0 72%;scroll-snap-align:start}
+.tiles{grid-template-columns:1fr 1fr;gap:12px}
+.tile{aspect-ratio:1/1.05;border-radius:14px}
+.tile div{padding:12px}.tile h3{font-size:16px}.tile p{display:none}.tile span{font-size:12.5px}
+.why{grid-template-columns:1fr}
+.chain{font-size:13px}
+.admit{padding:18px;border-radius:var(--r)}
+.admit .btn{width:100%}
+.terms span{flex:1 1 30%;text-align:center;padding:8px 6px}
+
+/* Forms: no iOS zoom, big targets */
+input,select,textarea{font-size:16px!important;min-height:var(--tap);border-radius:12px}
+input[type=checkbox],input[type=radio]{min-height:0;width:22px;height:22px}
+textarea{min-height:110px}
+label{display:block}
+table{display:block;overflow-x:auto;max-width:100%}
+.apanel{left:10px;right:10px;bottom:calc(72px + var(--sab));width:auto}
+
+/* Footer */
+.fg{grid-template-columns:1fr;gap:26px;padding-top:38px}
+footer.site a{display:inline-block;padding:4px 0}
+.soc a{padding:8px 16px}
+
+@media(min-width:560px){
+.hero .cta,.band .cta{flex-direction:row}
+.tiles{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}.tile p{display:block}
+.stage{flex-basis:44%}
+.fg{grid-template-columns:1fr 1fr}}
+
+@media(min-width:961px){
+body{padding-bottom:0}
+.wrap{padding-inline:20px}
+.tabbar{display:none}
+.topbar{display:block}
+#gia-header{min-height:142px}
+header.site{padding-top:0}
+.hd .wrap{padding-block:10px}
+.badge,#gia-header .badge{width:58px;height:58px;border-width:3px}.badge img{width:50px}
+.brand b{font-size:18px}.brand small{font-size:12.5px}
+.cta.d{display:flex}
+nav.main{position:static;display:block;background:var(--nm);overflow:visible}
+nav.main a{padding:12px 17px;font-size:14.5px;min-height:0;border-left:0;border-bottom:3px solid transparent}
+nav.main a[aria-current]{border-bottom-color:var(--b)}
+.hero{min-height:clamp(520px,82vh,720px)}
+.hero .wrap{padding-top:60px;padding-bottom:90px}
+.stats{grid-template-columns:repeat(4,1fr);margin-top:-52px}
+.sec{padding:76px 0}
+.two{grid-template-columns:1fr 1fr;gap:56px}
+.frame::after{display:block}
+.stages{display:grid;overflow:visible;margin:34px 0 0;padding:0;grid-template-columns:repeat(5,1fr)}
+.stage{flex:none}
+.tiles{grid-template-columns:repeat(3,1fr);gap:22px}.tile{aspect-ratio:4/3}.tile div{padding:20px}.tile h3{font-size:22px}
+.why{grid-template-columns:repeat(4,1fr)}
+.fg{grid-template-columns:1.5fr 1fr 1fr 1.1fr}
+.totop{bottom:18px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+@media print{.tabbar{display:none}body{padding:0}}
+
+/* Brand alignment with the GIA portal (Libre Baskerville + Source Sans 3, navy + gold, light header) */
+.btn{border-radius:10px}
+.hd{background:#fff;border-bottom:1px solid var(--line)}
+header.site{box-shadow:0 1px 8px rgba(7,24,58,.08)}
+.brand{color:var(--navy)}.brand b{font-size:13.5px;line-height:1.3;font-weight:700}.brand small{color:var(--bi);font-style:normal;font-weight:700;font-size:11.5px}
+.badge,#gia-header .badge{background:none;border:0;width:48px;height:48px}.badge img{width:48px}
+.burger{display:none!important}
+.kick{color:var(--bi)}
+.tile,.stage,.frame img,.admit,.stats,.why div{border-radius:var(--r)}
+@media(min-width:961px){
+.badge,#gia-header .badge{width:56px;height:56px;border:0}.badge img{width:56px}
+.brand b{font-size:16px}
+nav.main{background:#fff;border-bottom:1px solid var(--line)}
+nav.main a{color:var(--ink)}nav.main a:hover{background:var(--bs)}
+nav.main a[aria-current]{color:var(--navy);background:transparent;border-bottom-color:var(--bd);font-weight:700}
+#gia-header .btn.line{border-color:var(--navy);color:var(--navy)}#gia-header .btn.line:hover{background:var(--bs)}}

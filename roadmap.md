@@ -1,0 +1,11 @@
+# GIA Prototype Roadmap
+- [ ] Refresh public website UI, wording, logo and photographs from GIA-FINAL_WEBSITE.zip; preserve working ERP.
+- [x] Public site pages, login, portal
+- [x] App shell, dashboard, students, admissions, finance, receipt, academics, grades, approval
+- [x] Attendance, communication, documents, parent/student/staff portals, placeholder sections
+- [x] Use uploaded HTML references (public home, institutional dashboard, document center/transcripts) to polish matching screens
+- [x] Classes and subjects management
+- [x] Real backend (Lovable Cloud): logins, roles, profiles, account approval, registration gate
+- [ ] Persist data: students, admissions, payments/receipts/ledger, grades, notices, with role access rules
+- [ ] Missing screens: registration gate, user approval, master sheet, report cards, transcripts, ledger, ID cards
+- [ ] Installable app + offline support (published app only)
