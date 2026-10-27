@@ -1,50 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-<<<<<<< HEAD
-import { useState } from "react";
-import { toast } from "sonner";
-import { Check, X as XIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { PageHeader, Status, Stat } from "@/components/gia/kit";
-import { applications } from "@/lib/mock";
-import { Inbox, Clock, CheckCircle2, XCircle } from "lucide-react";
-
-export const Route = createFileRoute("/app/admissions")({ component: Admissions });
-
-function Admissions() {
-  const [rows, setRows] = useState(applications);
-  const set = (id: string, status: string) => { setRows((r) => r.map((x) => x.id === id ? { ...x, status } : x)); toast.success(`Application ${id} ${status.toLowerCase()}`); };
-  return (
-    <>
-      <PageHeader title="Admissions" subtitle="Applications for the 2026/2027 academic year" />
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <Stat icon={Inbox} label="Total Applications" value="142" />
-        <Stat icon={Clock} label="Pending Review" value="42" tone="gold" />
-        <Stat icon={CheckCircle2} label="Approved" value="87" tone="green" />
-        <Stat icon={XCircle} label="Rejected" value="13" tone="red" />
-      </div>
-      <div className="mt-6 space-y-3">
-        {rows.map((a) => (
-          <div key={a.id} className="grid gap-3 rounded-xl border bg-card p-4 shadow-sm sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2"><span className="font-semibold">{a.name}</span><Status value={a.status} /></div>
-              <div className="mt-1 text-sm text-muted-foreground">{a.id} • {a.level} • {a.guardian} • {a.date}</div>
-            </div>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline" onClick={() => set(a.id, "Rejected")}><XIcon />Reject</Button>
-              <Button size="sm" onClick={() => set(a.id, "Approved")}><Check />Approve</Button>
-            </div>
-          </div>
-        ))}
-      </div>
-=======
 import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Check, X as XIcon, Eye, UserPlus, Inbox, Clock, CheckCircle2, XCircle } from "lucide-react";
+import { Check, X as XIcon, Eye, UserPlus, Inbox, Clock, CheckCircle2, XCircle, Printer, Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHeader, Status, Stat, Field, inputCls } from "@/components/gia/kit";
 import { Modal, btnGhost, btnPrimary } from "@/components/gia/Modal";
-import { applicationsQuery, decideApplication, admitApplication, setAdmissionsOpen, type ApplicationRow } from "@/lib/admissions";
+import { applicationsQuery, decideApplication, admitApplication, setAdmissionsOpen, signedFileUrl, type ApplicationRow } from "@/lib/admissions";
+import { ApplicationDocument, downloadPdf } from "@/components/gia/ApplicationDocument";
+import { DOC_KINDS, rowToFields, fullName } from "@/lib/application-data";
 import { classesQuery } from "@/lib/result-pins";
 import { settingsQuery } from "@/lib/finance";
 
@@ -60,6 +24,7 @@ function Admissions() {
   const [admit, setAdmit] = useState<ApplicationRow | null>(null); const [classId, setClassId] = useState("");
   const [result, setResult] = useState<{ adm_no: string; name: string; enrolled: boolean } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [view, setView] = useState<{ a: ApplicationRow; photo: string | undefined } | null>(null);
   const rows = apps.data ?? [];
   const count = (s: string) => rows.filter((r) => r.status === s).length;
   const shown = useMemo(() => rows.filter((r) => filter === "All" || r.status === filter), [rows, filter]);
@@ -73,6 +38,8 @@ function Admissions() {
     setResult({ adm_no: r.adm_no, name: admit.pupil_name, enrolled: r.enrolled }); setAdmit(null); setClassId("");
     refresh(); qc.invalidateQueries({ queryKey: ["students"] });
   });
+  const openView = (a: ApplicationRow) => run(async () => { const photo = a.photo_path ? (await signedFileUrl(a.photo_path)) ?? undefined : undefined; setView({ a, photo }); });
+  const openFile = (path: string) => run(async () => { const u = await signedFileUrl(path); if (u) window.open(u, "_blank", "noopener"); else toast.error("Could not open the file."); });
   const open = (settings.data as { admissions_open?: boolean } | null)?.admissions_open;
 
   return (
@@ -97,6 +64,7 @@ function Admissions() {
                 <div className="mt-1 text-sm text-muted-foreground">{a.ref} • {a.class_applied || a.level} • {a.guardian_name} • <a className="underline" href={`tel:${a.guardian_phone}`}>{a.guardian_phone}</a> • {new Date(a.created_at).toLocaleDateString("en-GB")}</div>
               </div>
               <div className="flex flex-wrap gap-2">
+                <Button size="sm" variant="ghost" disabled={busy} onClick={() => openView(a)}><FileText />Application</Button>
                 {a.status === "Pending" && <Button size="sm" variant="outline" disabled={busy} onClick={() => decide(a, "Under review")}><Eye />Review</Button>}
                 {(a.status === "Pending" || a.status === "Under review") && <>
                   <Button size="sm" variant="outline" disabled={busy} onClick={() => setReject(a)}><XIcon />Reject</Button>
@@ -105,6 +73,7 @@ function Admissions() {
               </div>
             </div>
             <details className="mt-3 text-sm"><summary className="cursor-pointer text-primary">Details</summary>
+              {a.documents?.length > 0 && <div className="mt-2 flex flex-wrap gap-2">{a.documents.map((d) => <Button key={d.path} size="sm" variant="outline" onClick={() => openFile(d.path)}>{DOC_KINDS.find((k) => k.id === d.kind)?.label ?? d.kind}</Button>)}</div>}
               <dl className="mt-2 grid gap-x-6 gap-y-1 sm:grid-cols-2">{([["Date of birth", a.dob], ["Gender", a.gender === "M" ? "Male" : "Female"], ["Stage", a.level], ["Department", a.department], ["Entry", [a.term, a.academic_year].filter(Boolean).join(", ")], ["Email", a.guardian_email], ["Address", a.address], ["Previous school", a.previous_school], ["Last class", a.last_class], ["Reason for leaving", a.reason_leaving], ["Decision note", a.decision_note]] as const).filter(([, v]) => v).map(([k, v]) => <div key={k} className="flex gap-2"><dt className="text-muted-foreground">{k}:</dt><dd>{v}</dd></div>)}</dl></details>
           </div>
         ))}
@@ -118,10 +87,12 @@ function Admissions() {
         <p className="text-sm">Applied for: <b>{admit.class_applied || admit.level}</b>. This creates the pupil record and gives the next pupil ID.</p>
         <Field label="Place in class"><select className={inputCls} value={classId} onChange={(e) => setClassId(e.target.value)}><option value="">Select a class…</option>{classes.data?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></Field>
         {classes.data?.length === 0 && <p className="text-xs text-destructive">No classes exist yet. Add classes first.</p>}</Modal>}
+      {view && <Modal title={`${view.a.ref}: ${fullName(rowToFields(view.a)) || view.a.pupil_name}`} onClose={() => setView(null)}
+        footer={<><button className={btnGhost} onClick={() => window.print()}><Printer className="h-4 w-4" />Print</button><button className={btnGhost} onClick={() => void downloadPdf(`${view.a.ref}.pdf`)}><Download className="h-4 w-4" />PDF</button><button className={btnPrimary} onClick={() => setView(null)}>Close</button></>}>
+        <div className="overflow-x-auto"><ApplicationDocument f={rowToFields(view.a)} reference={view.a.ref} date={view.a.created_at} photoUrl={view.photo} attached={Object.fromEntries(DOC_KINDS.map((k) => [k.id, !!view.a.documents?.some((d) => d.kind === k.id)]))} /></div></Modal>}
       {result && <Modal title="Pupil admitted" onClose={() => setResult(null)} footer={<button className={btnPrimary} onClick={() => setResult(null)}>Done</button>}>
         <p className="text-sm"><b>{result.name}</b> now has pupil ID <b className="font-mono text-base">{result.adm_no}</b>.</p>
         <p className="text-xs text-muted-foreground">{result.enrolled ? "Enrolled in the current academic year." : "No current academic year is set, so enrolment still needs to be added."}</p></Modal>}
->>>>>>> 5ff510d (Fix repository configuration)
     </>
   );
 }

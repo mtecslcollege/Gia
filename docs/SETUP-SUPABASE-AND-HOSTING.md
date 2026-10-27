@@ -17,7 +17,7 @@ SQL migrations 1-4 pass their database tests on real Postgres. NOT tested: your 
 ## 2. Load the schema (in this exact order)
 Easiest way: Supabase dashboard > SQL Editor > New query, paste each file from `supabase/migrations/`, run, and wait for Success:
 1. `20261004175448_...sql` (original: tables, roles, demo data)   2. `20261026000000_add_exam_roles.sql`   (run it ALONE)
-3. `20261026000100_foundation.sql`   4. `20261026000200_result_pins.sql`   5. `20261026000300_admissions.sql`
+3. `20261026000100_foundation.sql`   4. `20261026000200_result_pins.sql`   5. `20261026000300_admissions.sql`   6. `20261026000400_application_form.sql` (creates the private file bucket)
 Or with the CLI: `npm i -g supabase`, `supabase login`, `supabase link --project-ref YOUR-REF`, `supabase db push`.
 If a file errors, stop and send the error to Claude; do not skip files. Migration 1 inserts 20 fake pupils and 3 sample notices (fine for dev).
 Then: Authentication > URL Configuration: set Site URL to your Netlify address (and `http://localhost:3000` / `http://localhost:5173` in Redirect URLs).

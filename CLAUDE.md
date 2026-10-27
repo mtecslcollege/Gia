@@ -12,25 +12,16 @@ Currency NLe (new leones), helper `leo()` in src/lib/mock.ts (only the helper is
 
 ## What is REAL (uses the database)
 login/roles/approval, students (list/detail/edit), school settings, Finance overview + Record Payment + Receipts + Fee Balances,
-<<<<<<< HEAD
-result PINs admin (/app/result-pins), public result checker (/results), public pages.
-## What is still MOCK (src/lib/mock.ts): grades entry, approval, attendance, admissions, classes, subjects, communication,
-=======
-online application form (/admissions) + admin Admissions review and Admit (migration 4: applications, submit_application/decide_application/admit_application),
+online application form (/admissions: 7-step wizard ported from the old static form, photo crop, document uploads to PRIVATE storage bucket application-files via signed upload URLs, printable A4 application letter + PDF) + admin Admissions review, file viewing, printing and Admit (migrations 4-5: applications, submit_application/decide_application/admit_application/attach_application_files),
 result PINs admin (/app/result-pins), public result checker (/results), public pages.
 ## What is still MOCK (src/lib/mock.ts): grades entry, approval, attendance, classes, subjects, communication,
->>>>>>> 5ff510d (Fix repository configuration)
 documents, parent/student/staff portals, dashboard numbers, users page partly. Convert these one at a time (see ROADMAP).
 
 ## Database (supabase/migrations, apply in order; never edit applied migrations, add new ones)
 1 original (profiles, user_roles, students, parent_students, grades, payments, notices, school_settings)
 2a roles exam_officer/registrar; 2b foundation (audit_log, academic_years, terms, classes, subjects, class_subjects,
 teaching_assignments, enrolments, grading_scales/boundaries, grade_status_history, fee_charges, attendance_*, views grade_results and
-<<<<<<< HEAD
-student_fee_balances); 3 result PINs (result_pins, result_attempts, verify_result()).
-=======
-student_fee_balances); 3 result PINs (result_pins, result_attempts, verify_result()); 4 admissions (applications; pupil ID format GIA### is a default, confirm with GIA).
->>>>>>> 5ff510d (Fix repository configuration)
+student_fee_balances); 3 result PINs (result_pins, result_attempts, verify_result()); 4 admissions (applications; 5 full application form columns + storage bucket; pupil ID format GIA### is a default, confirm with GIA).
 Key rules: payments and fee_charges are APPEND-ONLY (reversal via reverse_payment(), management only); grades change status only via
 transition_grades(); teachers write marks only for assigned class+subject+enrolled pupils; parents see only Published grades;
 PINs only as bcrypt hashes, verify_result() callable by service_role only; helper functions not callable by anon.
@@ -48,13 +39,7 @@ original migration saved as m1.sql next to it). `npx tsc --noEmit`, `npx vite bu
 Never commit .env or keys. Use fake pupils in the development database.
 
 ## ROADMAP (in order)
-<<<<<<< HEAD
-1 Admissions: application form -> admissions table (public submit via server function, rate-limited) -> /app/admissions review -> admit
-  (creates student with next pupil ID, enrolment). Keep the existing public form fields from the old static online_registration.html.
-2 Grades entry + approval screens on grades/transition_grades (needs academic year, terms, subjects, assignments, enrolments).
-=======
 1 DONE: Admissions. 2 Grades entry + approval screens on grades/transition_grades (needs academic year, terms, subjects, assignments, enrolments).
->>>>>>> 5ff510d (Fix repository configuration)
 3 Attendance screens on attendance_* tables. 4 Classes/Subjects/Settings screens on the new tables. 5 Dashboard real numbers.
 6 Parent portal (own children, published results, balances). 7 Offline-first + sync (IndexedDB queue, idempotency keys; see payments.client_uuid).
 8 Backups/runbook, security review, UAT with GIA staff. 9 AI assistance last. SkoolPadi (future product) stays separate.

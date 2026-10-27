@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { FIELD_KEYS, type StoredFile } from "@/lib/application-data";
 
 type Res<T> = Promise<{ data: T | null; error: { message: string } | null }>;
 type Untyped = {
@@ -14,11 +15,13 @@ export type ApplicationRow = {
   academic_year: string | null; term: string | null; guardian_name: string; guardian_phone: string; guardian_email: string | null;
   address: string | null; previous_school: string | null; last_class: string | null; reason_leaving: string | null;
   decision_note: string | null; student_id: string | null;
-};
+  surname: string | null; first_name: string | null; middle_name: string | null; photo_path: string | null; documents: StoredFile[];
+} & Partial<Record<(typeof FIELD_KEYS)[number], string | null>>;
 export const applicationsQuery = queryOptions({
   queryKey: ["applications"],
   queryFn: async () => {
-    const { data, error } = await db.from("applications").select("id, ref, created_at, status, pupil_name, dob, gender, level, class_applied, department, academic_year, term, guardian_name, guardian_phone, guardian_email, address, previous_school, last_class, reason_leaving, decision_note, student_id").order("created_at", { ascending: false });
+    const cols = ["id", "ref", "created_at", "status", "pupil_name", "decision_note", "student_id", "photo_path", "documents", ...FIELD_KEYS.filter((k) => k !== "signature_name"), "signature_name"].join(", ");
+    const { data, error } = await db.from("applications").select(cols).order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
     return (data ?? []) as ApplicationRow[];
   },
@@ -35,4 +38,10 @@ export async function admitApplication(id: string, classId: string): Promise<{ s
 export async function setAdmissionsOpen(open: boolean) {
   const { error } = await (supabase as unknown as { from: (t: string) => { update: (v: unknown) => { eq: (c: string, v: unknown) => Res<unknown> } } }).from("school_settings").update({ admissions_open: open }).eq("id", 1);
   if (error) throw new Error(error.message);
+}
+
+/** Short-lived link to a private application file (photo or document). */
+export async function signedFileUrl(path: string, seconds = 300): Promise<string | null> {
+  const { data, error } = await supabase.storage.from("application-files").createSignedUrl(path, seconds);
+  return error ? null : data.signedUrl;
 }
