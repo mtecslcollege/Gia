@@ -43,3 +43,8 @@ Never commit .env or keys. Use fake pupils in the development database.
 3 Attendance screens on attendance_* tables. 4 Classes/Subjects/Settings screens on the new tables. 5 Dashboard real numbers.
 6 Parent portal (own children, published results, balances). 7 Offline-first + sync (IndexedDB queue, idempotency keys; see payments.client_uuid).
 8 Backups/runbook, security review, UAT with GIA staff. 9 AI assistance last. SkoolPadi (future product) stays separate.
+
+## Images (important for hosting)
+School photos and the crest are real files in `public/images/school/` and `src/assets/school/*.asset.json` points `url` at `/images/school/<name>`.
+The original Lovable URLs (`/__l5e/assets-v1/...`) only work on Lovable's own host and show broken images on Netlify/other hosts. Do not
+re-introduce them. New images: put the file in `public/images/school/` and reference `/images/school/<file>`.
